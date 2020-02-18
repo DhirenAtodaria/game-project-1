@@ -1,4 +1,4 @@
-let objects = 
+let questions = 
 {"results": [
     {
         "category": "Entertainment: Film",
@@ -26,4 +26,45 @@ let objects =
     }]
 }
 
-let questionbox = document.querySelector('.questionbox');
+let questionBox = document.querySelector('.questionbox');
+let answerBoxes = document.querySelectorAll('.answersbox div');
+
+const questionSetter = () => {
+    questionBox.innerHTML = questions.results[0].question;
+}
+
+const answerSetter = () => {
+    let randomNumber = Math.floor(Math.random()*4);
+    answerBoxes[randomNumber].innerHTML = questions.results[0].correct_answer;
+    console.log(randomNumber);
+
+    let i = 0;
+    answerBoxes.forEach(item => {
+        if (item !== answerBoxes[randomNumber]) {
+            item.innerHTML = questions.results[0].incorrect_answers[i];
+            i++;
+        }
+    })
+}
+
+let answerInput = ""
+const clickSetter = () => {
+    answerBoxes.forEach(item => {
+        item.addEventListener("click", () => {
+            answerInput = event.target.innerHTML;
+            answerBoxes.forEach(item => {
+                item.classList.remove('selectedstyle');
+            })
+            event.target.classList.add('selectedstyle');
+        })
+    })
+}
+
+const buildQuiz = () => {
+    questionSetter();
+    answerSetter();
+    clickSetter();
+    
+}
+
+buildQuiz();

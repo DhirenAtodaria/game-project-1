@@ -90,6 +90,14 @@
           align-items: center;
 }
 
+.container .questionarea .questionssection .answersbox .nostyles {
+  background-color: none;
+}
+
+.container .questionarea .questionssection .answersbox .selectedstyle {
+  background-color: yellow;
+}
+
 .container .questionarea .questionssection .answersbox #answer1 {
   -ms-grid-column: 2;
   -ms-grid-column-span: 1;

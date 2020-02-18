@@ -59,6 +59,14 @@
                     align-items: center;
                 }
 
+                .nostyles {
+                    background-color: none;
+                }
+
+                .selectedstyle {
+                    background-color: yellow;
+                }
+
                 #answer1 {
                     grid-column: 2 / 3;
                     grid-row: 2 / 3;
