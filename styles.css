@@ -194,6 +194,10 @@
           align-items: center;
 }
 
+.container .scoresarea .scores .all .scorestyle {
+  background-color: greenyellow;
+}
+
 .container .scoresarea .scores .all div {
   width: 90%;
   height: 5%;

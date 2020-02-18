@@ -67,6 +67,7 @@
                     background-color: yellow;
                 }
 
+
                 .correctanswer {
                     background-color: green;
                 }
@@ -131,6 +132,10 @@
                 flex-direction: column-reverse;
                 justify-content: center;
                 align-items: center;
+
+                .scorestyle {
+                    background-color: greenyellow;
+                }
 
                 div {
                     width: 90%;
