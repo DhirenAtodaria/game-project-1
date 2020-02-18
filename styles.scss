@@ -67,6 +67,14 @@
                     background-color: yellow;
                 }
 
+                .correctanswer {
+                    background-color: green;
+                }
+
+                .incorrectanswer {
+                    background-color: red;
+                }
+
                 #answer1 {
                     grid-column: 2 / 3;
                     grid-row: 2 / 3;
