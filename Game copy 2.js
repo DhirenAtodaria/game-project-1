@@ -1,17 +1,7 @@
-class Question {
-    constructor(question, correct_answer, incorrect_answers) {
-        this.question = question;
-        this.correct_answer = correct_answer;
-        this.incorrect_answers = incorrect_answers;
-    }
-}
+
 
 class Game {
     constructor() {
-        this.urls =  [
-            'https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple',
-            'https://opentdb.com/api.php?amount=5&difficulty=medium&type=multiple',
-            'https://opentdb.com/api.php?amount=5&difficulty=hard&type=multiple'];
         this.questionBox = document.querySelector('.questionbox');
         this.answerBoxes = document.querySelectorAll('.answersbox div');
         this.counter = 0
@@ -20,34 +10,9 @@ class Game {
         this.scoresLabels = document.querySelectorAll('.scoreslabel');
         this.currentScore;
         this.timeBox = document.querySelector('.timer');
-        this.questions;
-    }
-
-    questionGetter() {
-        Promise.all((this.urls).map(url =>
-            fetch(url)
-                .then(res => res.json())
-            ))
-            .then(
-              data => {
-                this.questions = [];
-                data.forEach(item => {
-                  item['results'].forEach(question => {this.questions.push(new Question(question.question, question.correct_answer, question.incorrect_answers))});
-                }
-                )
-              }
-            )
-            .then(() => console.log(this.questions))
-            .then(() => {
-                startTimer();
-                buildQuiz(this);
-            })
-    };
-
-    questionSetter() {
-        this.questionBox.innerHTML = this.questions[this.counter].question;
     }
 }
+
 
 
 class Scoreboard {
@@ -61,21 +26,16 @@ class Scoreboard {
     }
 }
 
-let newGame = new Game();
+let questions;
 let score = new Scoreboard();
 let submitButton = document.querySelector('.submit');
 let timerID;
 let timeleft = 30;
 score.scoreEnumeration();
 
-const buildQuiz = (game) => {
-    game.questionSetter();
-    game.answerSetter();
-    game.clickSetter();
-    game.addingListener();
-};
-
-newGame.questionGetter();
+// const questionSetter = () => {
+//         (newGame.questionBox).innerHTML = (question.questions).results[newGame.counter].question;
+// };
 
 const answerSetter = () => {
         let randomNumber = Math.floor(Math.random()*4);
@@ -175,4 +135,30 @@ const addingListener = () => {
 }
 
 
+const buildQuiz = () => {
+    questionSetter();
+    answerSetter();
+    clickSetter();
+    addingListener();
+};
 
+
+const questionGetter = () => {
+    Promise.all((question.urls).map(url =>
+        fetch(url)
+            .then(res => res.json())
+        ))
+        .then(data => {
+        question = [];
+        question = data['results'].map((item) => {
+            return 
+        });
+        })
+        .then(() => {
+            // startTimer();
+            buildQuiz();
+        })
+        .then(() => console.log(question.questions))
+};
+
+questionGetter();
