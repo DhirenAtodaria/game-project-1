@@ -1,10 +1,4 @@
-class Question {
-    constructor(question, correct_answer, incorrect_answers) {
-        this.question = question;
-        this.correct_answer = correct_answer;
-        this.incorrect_answers = incorrect_answers;
-    }
-}
+import Question from "./Question.js"
 
 class Game {
     constructor(questionBox, answerBoxes, submitButton, scoresLabels, timeBox) {
@@ -109,7 +103,6 @@ class Game {
         this.questionSetter();
         this.answerSetter();
         this.clickSetter();
-        // addingListener();
     };
 
     questionGetter() {
@@ -134,53 +127,6 @@ class Game {
     };
 }
 
-class Scoreboard {
-    constructor() {
-        this.scoresLabels = document.querySelectorAll('.scoreslabel');
-        this.scoreBoard = [];
-    }
+export default Game;
 
-    scoreEnumeration() {
-        this.scoresLabels.forEach(item => this.scoreBoard.push(item.innerHTML));
-    }
-}
-
-const answerChecker = (param) => {
-    if (param.finalAnswerValue) {
-        param.inputIndex.classList.add("correctanswer");
-        score.scoresLabels[param.counter].classList.add("scorestyle");
-        param.counter++;
-        param.currentScore = score.scoreBoard[param.counter - 1];
-        console.log(param.currentScore);
-        setTimeout(function() {param.nextQuestion()}, 3000);
-    } else {
-            param.inputIndex.classList.add("incorrectanswer");
-            setTimeout(function() {param.loseReset()}, 3000);
-    }
-};
-
-const addingListener = (game) => {
-    game.submitButton.addEventListener("click", function handler() {
-        if (game.inputIndex) {
-            event.target.removeEventListener("click", handler);
-            game.stopTimer();
-            answerChecker(game);
-        } else {
-            alert("Click an answer Please");
-        }
-    })
-};
-
-let questionBox = document.querySelector('.questionbox');
-let answerBoxes = document.querySelectorAll('.answersbox div');
-let submitButton = document.querySelector('.submit');
-let scoresLabels = document.querySelectorAll('.scoreslabel');
-let timeBox = document.querySelector('.timer');
-
-let newGame = new Game(questionBox, answerBoxes, submitButton, scoresLabels, timeBox);
-let score = new Scoreboard();
-
-score.scoreEnumeration();
-addingListener(newGame);
-newGame.questionGetter();
 
