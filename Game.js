@@ -30,7 +30,7 @@ class Game {
         const countDown = () => {
             if (this.timeleft === 0) {
                 clearTimeout(this.timerID);
-                loseReset();
+                this.loseReset();
             } else {
                 this.timeBox.innerHTML = `${this.timeleft} seconds remaining`;
                 this.timeleft--;
@@ -80,11 +80,36 @@ class Game {
         return this.answerInput === (this.questions)[this.counter].correct_answer;
     }
 
+    nextQuestion() {
+        if (this.counter < 4) {
+            this.stopTimer();
+            this.startTimer();
+        }
+        this.answerInput = "";
+        this.inputIndex = undefined;
+        (this.answerBoxes).forEach(item => {
+            item.classList = "";
+        })
+        this.buildQuiz();
+    };
+
+    loseReset = () => {
+        this.answerInput = "";
+        this.inputIndex = undefined;
+        this.counter = 0;
+        this.answerBoxes.forEach(item => {
+            item.classList = "";
+        });
+        this.scoresLabels.forEach(item => item.classList = "");
+        this.stopTimer();
+        this.questionGetter();
+    };
+
     buildQuiz() {
         this.questionSetter();
         this.answerSetter();
         this.clickSetter();
-        addingListener();
+        // addingListener();
     };
 
     questionGetter() {
@@ -120,51 +145,26 @@ class Scoreboard {
     }
 }
 
-const nextQuestion = () => {
-    if (newGame.counter < 4) {
-        newGame.stopTimer();
-        newGame.startTimer();
-    }
-    newGame.answerInput = "";
-    newGame.inputIndex = undefined;
-    newGame.answerBoxes.forEach(item => {
-        item.classList = "";
-    })
-    newGame.buildQuiz();
-};
-
-const loseReset = () => {
-    newGame.answerInput = "";
-    newGame.inputIndex = undefined;
-    newGame.counter = 0;
-    newGame.answerBoxes.forEach(item => {
-        item.classList = "";
-    });
-    newGame.scoresLabels.forEach(item => item.classList = "");
-    newGame.stopTimer();
-    newGame.questionGetter();
-};
-
-const answerChecker = () => {
-    if (newGame.finalAnswerValue) {
-        newGame.inputIndex.classList.add("correctanswer");
-        score.scoresLabels[newGame.counter].classList.add("scorestyle");
-        newGame.counter++;
-        newGame.currentScore = score.scoreBoard[newGame.counter - 1];
-        console.log(newGame.currentScore);
-        setTimeout(nextQuestion, 3000);
+const answerChecker = (param) => {
+    if (param.finalAnswerValue) {
+        param.inputIndex.classList.add("correctanswer");
+        score.scoresLabels[param.counter].classList.add("scorestyle");
+        param.counter++;
+        param.currentScore = score.scoreBoard[param.counter - 1];
+        console.log(param.currentScore);
+        setTimeout(function() {param.nextQuestion()}, 3000);
     } else {
-            newGame.inputIndex.classList.add("incorrectanswer");
-            setTimeout(loseReset, 3000);
+            param.inputIndex.classList.add("incorrectanswer");
+            setTimeout(function() {param.loseReset()}, 3000);
     }
 };
 
-const addingListener = () => {
-    newGame.submitButton.addEventListener("click", function handler() {
-        if (newGame.inputIndex) {
+const addingListener = (game) => {
+    game.submitButton.addEventListener("click", function handler() {
+        if (game.inputIndex) {
             event.target.removeEventListener("click", handler);
-            newGame.stopTimer();
-            answerChecker(newGame);
+            game.stopTimer();
+            answerChecker(game);
         } else {
             alert("Click an answer Please");
         }
@@ -181,5 +181,6 @@ let newGame = new Game(questionBox, answerBoxes, submitButton, scoresLabels, tim
 let score = new Scoreboard();
 
 score.scoreEnumeration();
+addingListener(newGame);
 newGame.questionGetter();
 
