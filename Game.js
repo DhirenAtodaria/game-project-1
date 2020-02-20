@@ -7,21 +7,85 @@ class Question {
 }
 
 class Game {
-    constructor() {
+    constructor(questionBox, answerBoxes, submitButton, scoresLabels, timeBox) {
         this.urls =  [
             'https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple',
             'https://opentdb.com/api.php?amount=5&difficulty=medium&type=multiple',
             'https://opentdb.com/api.php?amount=5&difficulty=hard&type=multiple'];
-        this.questionBox = document.querySelector('.questionbox');
-        this.answerBoxes = document.querySelectorAll('.answersbox div');
+        this.questionBox = questionBox;
+        this.answerBoxes = answerBoxes;
+        this.submitButton = submitButton;
+        this.scoresLabels = scoresLabels;
+        this.timeBox = timeBox;
         this.counter = 0
         this.answerInput = ""
         this.inputIndex;
-        this.scoresLabels = document.querySelectorAll('.scoreslabel');
         this.currentScore;
-        this.timeBox = document.querySelector('.timer');
         this.questions;
+        this.timerID;
+        this.timeleft = 30;
     }
+
+    startTimer() {
+        const countDown = () => {
+            if (this.timeleft === 0) {
+                clearTimeout(this.timerID);
+                loseReset();
+            } else {
+                this.timeBox.innerHTML = `${this.timeleft} seconds remaining`;
+                this.timeleft--;
+            }
+        };
+        countDown();
+        this.timerID = setInterval(countDown, 1000);
+    };
+
+    stopTimer() {
+        clearTimeout(this.timerID);
+        this.timeleft = 30;
+        this.timeBox.innerHTML = "";
+    }
+    
+    questionSetter() {
+        this.questionBox.innerHTML = this.questions[this.counter].question;
+    }
+
+    answerSetter = () => {
+        let randomNumber = Math.floor(Math.random()*4);
+        this.answerBoxes[randomNumber].innerHTML = this.questions[this.counter].correct_answer;
+
+        let i = 0;
+        this.answerBoxes.forEach(item => {
+        if (item !== this.answerBoxes[randomNumber]) {
+            item.innerHTML = this.questions[this.counter].incorrect_answers[i];
+            i++;
+            }
+        });
+    };
+
+    clickSetter() {
+        (this.answerBoxes).forEach(item => {
+            item.addEventListener("click", () => {
+                this.answerInput = event.target.innerHTML;
+                this.inputIndex = event.target;
+                (this.answerBoxes).forEach(item => {
+                    item.classList = "";
+                });
+                event.target.classList.add('selectedstyle');
+            })
+        })
+    };
+    
+    get finalAnswerValue() {
+        return this.answerInput === (this.questions)[this.counter].correct_answer;
+    }
+
+    buildQuiz() {
+        this.questionSetter();
+        this.answerSetter();
+        this.clickSetter();
+        addingListener();
+    };
 
     questionGetter() {
         Promise.all((this.urls).map(url =>
@@ -39,16 +103,11 @@ class Game {
             )
             .then(() => console.log(this.questions))
             .then(() => {
-                startTimer();
-                buildQuiz(this);
+                this.startTimer();
+                this.buildQuiz();
             })
     };
-
-    questionSetter() {
-        this.questionBox.innerHTML = this.questions[this.counter].question;
-    }
 }
-
 
 class Scoreboard {
     constructor() {
@@ -61,94 +120,17 @@ class Scoreboard {
     }
 }
 
-let newGame = new Game();
-let score = new Scoreboard();
-let submitButton = document.querySelector('.submit');
-let timerID;
-let timeleft = 30;
-score.scoreEnumeration();
-
-const buildQuiz = (game) => {
-    game.questionSetter();
-    game.answerSetter();
-    game.clickSetter();
-    game.addingListener();
-};
-
-newGame.questionGetter();
-
-const answerSetter = () => {
-        let randomNumber = Math.floor(Math.random()*4);
-        newGame.answerBoxes[randomNumber].innerHTML = (question.questions).results[newGame.counter].correct_answer;
-
-        let i = 0;
-        newGame.answerBoxes.forEach(item => {
-        if (item !== newGame.answerBoxes[randomNumber]) {
-            item.innerHTML = (question.questions).results[newGame.counter].incorrect_answers[i];
-            i++;
-            }
-        });
-};
-
-const clickSetter = () => {
-    (newGame.answerBoxes).forEach(item => {
-        item.addEventListener("click", () => {
-            newGame.answerInput = event.target.innerHTML;
-            newGame.inputIndex = event.target;
-            (newGame.answerBoxes).forEach(item => {
-                item.classList = "";
-            });
-            event.target.classList.add('selectedstyle');
-        })
-    })
-};
-
-const answerChecker = () => {
-    if (newGame.answerInput === (question.questions).results[newGame.counter].correct_answer) {
-        newGame.inputIndex.classList.add("correctanswer");
-        score.scoresLabels[newGame.counter].classList.add("scorestyle");
-        newGame.counter++;
-        newGame.currentScore = score.scoreBoard[newGame.counter - 1];
-        console.log(newGame.currentScore);
-        setTimeout(nextQuestion, 3000);
-    } else {
-        if (newGame.inputIndex) {
-        newGame.inputIndex.classList.add("incorrectanswer");
-        setTimeout(loseReset, 3000);
-        } else {
-            addingListener();
-        }
-    }
-};
-
-const startTimer = () => {
-    const countDown = () => {
-        if (timeleft === 0) {
-            clearTimeout(timerID);
-            loseReset();
-        } else {
-            newGame.timeBox.innerHTML = `${timeleft} seconds remaining`;
-            timeleft--;
-        }
-    };
-    countDown();
-    timerID = setInterval(countDown, 1000);
-};
-
-const stopTimer = () => {
-    clearTimeout(timerID);
-    timeleft = 30;
-    newGame.timeBox.innerHTML = "";
-}
-
-
 const nextQuestion = () => {
+    if (newGame.counter < 4) {
+        newGame.stopTimer();
+        newGame.startTimer();
+    }
     newGame.answerInput = "";
     newGame.inputIndex = undefined;
     newGame.answerBoxes.forEach(item => {
         item.classList = "";
     })
-    buildQuiz();
+    newGame.buildQuiz();
 };
 
 const loseReset = () => {
@@ -159,20 +141,45 @@ const loseReset = () => {
         item.classList = "";
     });
     newGame.scoresLabels.forEach(item => item.classList = "");
-    stopTimer();
-    questionGetter();
+    newGame.stopTimer();
+    newGame.questionGetter();
+};
+
+const answerChecker = () => {
+    if (newGame.finalAnswerValue) {
+        newGame.inputIndex.classList.add("correctanswer");
+        score.scoresLabels[newGame.counter].classList.add("scorestyle");
+        newGame.counter++;
+        newGame.currentScore = score.scoreBoard[newGame.counter - 1];
+        console.log(newGame.currentScore);
+        setTimeout(nextQuestion, 3000);
+    } else {
+            newGame.inputIndex.classList.add("incorrectanswer");
+            setTimeout(loseReset, 3000);
+    }
 };
 
 const addingListener = () => {
-    submitButton.addEventListener("click", function handler() {
-        event.target.removeEventListener("click", handler);
-        stopTimer();
-        if (newGame.counter < 4) {
-            setTimeout(startTimer, 3000);
+    newGame.submitButton.addEventListener("click", function handler() {
+        if (newGame.inputIndex) {
+            event.target.removeEventListener("click", handler);
+            newGame.stopTimer();
+            answerChecker(newGame);
+        } else {
+            alert("Click an answer Please");
         }
-        answerChecker();
     })
-}
+};
 
+let questionBox = document.querySelector('.questionbox');
+let answerBoxes = document.querySelectorAll('.answersbox div');
+let submitButton = document.querySelector('.submit');
+let scoresLabels = document.querySelectorAll('.scoreslabel');
+let timeBox = document.querySelector('.timer');
 
+let newGame = new Game(questionBox, answerBoxes, submitButton, scoresLabels, timeBox);
+let score = new Scoreboard();
+
+score.scoreEnumeration();
+newGame.questionGetter();
 
