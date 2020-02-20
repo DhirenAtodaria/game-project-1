@@ -2,11 +2,12 @@ let questionBox = document.querySelector('.questionbox');
 let answerBoxes = document.querySelectorAll('.answersbox div');
 let submitButton = document.querySelector('.submit');
 let scoresLabels = document.querySelectorAll('.scoreslabel');
+
 const urls = [
     'https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple',
     'https://opentdb.com/api.php?amount=5&difficulty=medium&type=multiple',
     'https://opentdb.com/api.php?amount=5&difficulty=hard&type=multiple'];
-let questions = {'results': []};
+let questions;
 let counter = 0;
 
 const questionGetter = () => {
@@ -25,8 +26,6 @@ const questionGetter = () => {
       .then(() => buildQuiz())
       .then(() => console.log(questions))
 }
-
-
 
 const questionSetter = () => {
     questionBox.innerHTML = questions.results[counter].question;
@@ -105,4 +104,3 @@ const buildQuiz = () => {
 }
 
 questionGetter();
-setTimeout(buildQuiz, 2000);
