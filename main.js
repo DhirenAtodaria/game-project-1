@@ -21,10 +21,28 @@ const addingListener = (game) => {
           event.target.removeEventListener("click", handler);
           game.stopTimer();
           answerChecker(game);
-          setTimeout(function() {addingListener(game)}, 3000)
+          setTimeout(function() {game.submitButtonChecker = false; 
+                                 addingListener(game);}, 3000)
+
       } else {
           alert("Click an answer Please");
       }
+      game.submitButtonChecker = true;
+  })
+
+  game.answerBoxes.forEach(item => {
+    item.addEventListener("click", function handler() {
+        if (game.submitButtonChecker) {
+          event.target.removeEventListener("click", handler)
+        } else{
+        game.answerInput = event.target.innerHTML;
+        game.inputIndex = event.target;
+        (game.answerBoxes).forEach(item => {
+            item.classList = "";
+        });
+        event.target.classList.add('selectedstyle');
+      }
+    })
   })
 };
 

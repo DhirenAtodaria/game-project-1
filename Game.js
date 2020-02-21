@@ -18,6 +18,7 @@ class Game {
         this.questions;
         this.timerID;
         this.timeleft = 30;
+        this.submitButtonChecker = false;
     }
 
     startTimer() {
@@ -46,32 +47,19 @@ class Game {
 
     answerSetter = () => {
         let randomNumber = Math.floor(Math.random()*4);
-        this.answerBoxes[randomNumber].innerHTML = this.questions[this.counter].correct_answer;
+        this.answerBoxes[randomNumber].innerHTML = this.questions[this.counter].correctAnswer;
 
         let i = 0;
         this.answerBoxes.forEach(item => {
         if (item !== this.answerBoxes[randomNumber]) {
-            item.innerHTML = this.questions[this.counter].incorrect_answers[i];
+            item.innerHTML = this.questions[this.counter].incorrectAnswers[i];
             i++;
             }
         });
     };
-
-    clickSetter() {
-        (this.answerBoxes).forEach(item => {
-            item.addEventListener("click", () => {
-                this.answerInput = event.target.innerHTML;
-                this.inputIndex = event.target;
-                (this.answerBoxes).forEach(item => {
-                    item.classList = "";
-                });
-                event.target.classList.add('selectedstyle');
-            })
-        })
-    };
     
     get finalAnswerValue() {
-        return this.answerInput === (this.questions)[this.counter].correct_answer;
+        return this.answerInput === (this.questions)[this.counter].correctAnswer;
     }
 
     nextQuestion() {
@@ -102,7 +90,6 @@ class Game {
     buildQuiz() {
         this.questionSetter();
         this.answerSetter();
-        this.clickSetter();
     };
 
     questionGetter() {
@@ -119,7 +106,6 @@ class Game {
                 )
               }
             )
-            .then(() => console.log(this.questions))
             .then(() => {
                 this.startTimer();
                 this.buildQuiz();
