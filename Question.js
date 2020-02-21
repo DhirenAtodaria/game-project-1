@@ -1,8 +1,8 @@
 class Question {
-    constructor(question, correct_answer, incorrect_answers) {
+    constructor(question, correctAnswer, incorrectAnswers) {
         this.question = question;
-        this.correct_answer = correct_answer;
-        this.incorrect_answers = incorrect_answers;
+        this.correct_answer = correctAnswer;
+        this.incorrect_answers = incorrectAnswers;
     }
 }
 

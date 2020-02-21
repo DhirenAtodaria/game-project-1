@@ -1,6 +1,6 @@
 class Scoreboard {
-    constructor() {
-        this.scoresLabels = document.querySelectorAll('.scoreslabel');
+    constructor(scoreBoard) {
+        this.scoresLabels = scoreBoard;
         this.scoreBoard = [];
     }
 

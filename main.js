@@ -1,26 +1,27 @@
 import Game from "./Game.js"
 import Scoreboard from "./Scoreboard.js"
 
-const answerChecker = (param) => {
-  if (param.finalAnswerValue) {
-      param.inputIndex.classList.add("correctanswer");
-      score.scoresLabels[param.counter].classList.add("scorestyle");
-      param.counter++;
-      param.currentScore = score.scoreBoard[param.counter - 1];
-      console.log(param.currentScore);
-      setTimeout(function() {param.nextQuestion()}, 3000);
+const answerChecker = (inputAnswer) => {
+  if (inputAnswer.finalAnswerValue) {
+      inputAnswer.inputIndex.classList.add("correctanswer");
+      score.scoresLabels[inputAnswer.counter].classList.add("scorestyle");
+      inputAnswer.counter++;
+      inputAnswer.currentScore = score.scoreBoard[inputAnswer.counter - 1];
+      console.log(inputAnswer.currentScore);
+      setTimeout(function() {inputAnswer.nextQuestion();}, 3000);
   } else {
-          param.inputIndex.classList.add("incorrectanswer");
-          setTimeout(function() {param.loseReset()}, 3000);
+          inputAnswer.inputIndex.classList.add("incorrectanswer");
+          setTimeout(function() {inputAnswer.loseReset()}, 3000);
   }
 };
 
 const addingListener = (game) => {
   game.submitButton.addEventListener("click", function handler() {
       if (game.inputIndex) {
-          // event.target.removeEventListener("click", handler);
+          event.target.removeEventListener("click", handler);
           game.stopTimer();
           answerChecker(game);
+          setTimeout(function() {addingListener(game)}, 3000)
       } else {
           alert("Click an answer Please");
       }
@@ -33,7 +34,7 @@ let submitButton = document.querySelector('.submit');
 let scoresLabels = document.querySelectorAll('.scoreslabel');
 let timeBox = document.querySelector('.timer');
 let newGame = new Game(questionBox, answerBoxes, submitButton, scoresLabels, timeBox);
-let score = new Scoreboard();
+let score = new Scoreboard(scoresLabels);
 
 score.scoreEnumeration();
 addingListener(newGame);
