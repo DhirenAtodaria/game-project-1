@@ -9,10 +9,73 @@
 .container {
   width: 90vw;
   height: 90vh;
-  border: 2px solid green;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+}
+
+.container .loadingpage .tophalf {
+  position: absolute;
+  height: 50vh;
+  width: 100vw;
+  background-color: white;
+}
+
+.container .loadingpage .monopolyhead {
+  position: absolute;
+  height: 200px;
+  width: 200px;
+  background-image: url("./images/monopolyhead.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  top: 50%;
+  -webkit-transform: translate(-100%, -50%);
+          transform: translate(-100%, -50%);
+  z-index: 3;
+}
+
+.container .loadingpage .monopolyhead .welcomemessage {
+  position: absolute;
+  width: 50vw;
+  top: 60%;
+  left: 120%;
+  font-size: 28px;
+}
+
+.container .loadingpage .monopolyhead .myButton {
+  -webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
+          box-shadow: inset 0px 1px 0px 0px #ffffff;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #ffffff), to(#f6f6f6));
+  background: linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+  background-color: #ffffff;
+  border-radius: 6px;
+  border: 1px solid #dcdcdc;
+  display: inline-block;
+  cursor: pointer;
+  color: #666666;
+  font-family: Arial;
+  font-size: 19px;
+  font-weight: bold;
+  padding: 6px 24px;
+  text-decoration: none;
+  text-shadow: 0px 1px 0px #ffffff;
+  position: absolute;
+  top: 110%;
+  left: 35%;
+}
+
+.container .loadingpage .monopolyhead .myButton:hover {
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #f6f6f6), to(#ffffff));
+  background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+  background-color: #f6f6f6;
+}
+
+.container .loadingpage .lowerhalf {
+  position: absolute;
+  bottom: 0;
+  height: 50vh;
+  width: 100vw;
+  background-color: white;
 }
 
 .container .questionarea {
@@ -62,6 +125,28 @@
   width: 80%;
   height: 30%;
   border: 2px solid bisque;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.container .questionarea .questionssection .questionbox .monopolyquestionhead {
+  height: 70%;
+  width: 30%;
+  background-image: url("./images/monopolyhead.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.container .questionarea .questionssection .questionbox .messagearea {
+  width: 50%;
+  font-size: 18px;
 }
 
 .container .questionarea .questionssection .answersbox {
@@ -75,6 +160,10 @@
   -ms-grid-rows: 0.5fr 2fr 2fr 0.5fr;
       grid-template-rows: 0.5fr 2fr 2fr 0.5fr;
   grid-gap: 10px;
+}
+
+.container .questionarea .questionssection .answersbox #answer1, .container .questionarea .questionssection .answersbox #answer2, .container .questionarea .questionssection .answersbox #answer3, .container .questionarea .questionssection .answersbox #answer4 {
+  opacity: 0;
 }
 
 .container .questionarea .questionssection .answersbox div {

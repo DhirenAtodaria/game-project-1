@@ -1,59 +1,82 @@
 import Game from "./Game.js"
-import Scoreboard from "./Scoreboard.js"
 
-const answerChecker = (inputAnswer) => {
+export const answerChecker = (inputAnswer) => {
   if (inputAnswer.finalAnswerValue) {
-      inputAnswer.inputIndex.classList.add("correctanswer");
-      score.scoresLabels[inputAnswer.counter].classList.add("scorestyle");
-      inputAnswer.counter++;
-      inputAnswer.currentScore = score.scoreBoard[inputAnswer.counter - 1];
-      console.log(inputAnswer.currentScore);
-      setTimeout(function() {inputAnswer.nextQuestion();}, 3000);
+    inputAnswer.inputIndex.classList.add("correctanswer");
+    inputAnswer.scoreBoard.scoresLabels[inputAnswer.questionCounter].classList.add("scorestyle");
+    inputAnswer.questionCounter++;
+
+    (inputAnswer.messageArea
+    .exec(() => {
+      let answerAnim = gsap.timeline()
+            answerAnim.to('#answer1', {duration: 0.5, opacity: 0})
+            answerAnim.to('#answer2', {duration: 0.5, opacity: 0})
+            answerAnim.to('#answer3', {duration: 0.5, opacity: 0})
+            answerAnim.to('#answer4', {duration: 0.5, opacity: 0})
+    })
+    .delete()
+    .type("YOU'VE WON!!!")
+    .pause(1000)
+    .delete()
+    .type("Well done, now good luck on the next question.")
+    .pause(1000)
+    .delete()
+    .go())
+    
+    setTimeout(function() {inputAnswer.submitButtonChecker = false;
+                            inputAnswer.nextQuestion();}, 6000);      
   } else {
-          inputAnswer.inputIndex.classList.add("incorrectanswer");
-          setTimeout(function() {inputAnswer.loseReset()}, 3000);
+    inputAnswer.inputIndex.classList.add("incorrectanswer");
+    (inputAnswer.messageArea
+      .delete()
+      .type("Sorry, you've lost all the munnys")
+      .pause(1000)
+      .delete()
+      .type("Better luck next time.")
+      .pause(1000)
+      .delete()
+      .type("Click the play-again button to try again")
+      .go());
   }
 };
 
-const addingListener = (game) => {
-  game.submitButton.addEventListener("click", function handler() {
+export const addingListener = (game) => {
+  console.log("listeneron");
+  game.submitButton.addEventListener("click", () => {
       if (game.inputIndex) {
-          event.target.removeEventListener("click", handler);
+          game.submitButtonChecker = true;
           game.stopTimer();
           answerChecker(game);
-          setTimeout(function() {game.submitButtonChecker = false; 
-                                 addingListener(game);}, 3000)
-
       } else {
           alert("Click an answer Please");
       }
-      game.submitButtonChecker = true;
-  })
+    console.log("triggerd?");
+  }, {once: true});
 
   game.answerBoxes.forEach(item => {
-    item.addEventListener("click", function handler() {
-        if (game.submitButtonChecker) {
-          event.target.removeEventListener("click", handler)
-        } else{
-        game.answerInput = event.target.innerHTML;
-        game.inputIndex = event.target;
-        (game.answerBoxes).forEach(item => {
+    item.addEventListener("click", () => {
+        if (!game.submitButtonChecker) {
+          game.answerInput = event.target.innerHTML;
+          game.inputIndex = event.target;
+          (game.answerBoxes).forEach(item => {
             item.classList = "";
-        });
-        event.target.classList.add('selectedstyle');
-      }
+          });
+          event.target.classList.add('selectedstyle');
+        }
     })
-  })
+  }, {once: true});
+
+  game.playAgainButton.addEventListener("click", () => {
+    game.submitButtonChecker = false;
+    game.loseReset();
+    }, {once: true});
 };
 
-let questionBox = document.querySelector('.questionbox');
-let answerBoxes = document.querySelectorAll('.answersbox div');
-let submitButton = document.querySelector('.submit');
-let scoresLabels = document.querySelectorAll('.scoreslabel');
-let timeBox = document.querySelector('.timer');
-let newGame = new Game(questionBox, answerBoxes, submitButton, scoresLabels, timeBox);
-let score = new Scoreboard(scoresLabels);
+export let questionBox = document.querySelector('.messagearea');
+export let answerBoxes = document.querySelectorAll('.answersbox div');
+export let submitButton = document.querySelector('.submit');
+export let scoresLabels = document.querySelectorAll('.scoreslabel');
+export let timeBox = document.querySelector('.timer');
+export let playAgain = document.querySelector('.play_again');
 
-score.scoreEnumeration();
-addingListener(newGame);
-newGame.questionGetter();
+export let newGame = new Game(questionBox, answerBoxes, submitButton, scoresLabels, timeBox, playAgain, scoresLabels);

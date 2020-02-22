@@ -1,11 +1,14 @@
 class Scoreboard {
     constructor(scoreBoard) {
         this.scoresLabels = scoreBoard;
-        this.scoreBoard = [];
+        this.scores = this.scoreEnumeration();
     }
 
     scoreEnumeration() {
-        this.scoresLabels.forEach(item => this.scoreBoard.push(item.innerHTML));
+        let scores = []
+        this.scoresLabels.forEach(item => scores.push(item.innerHTML));
+        console.log(scores);
+        return scores;
     }
 }
 

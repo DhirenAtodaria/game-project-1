@@ -12,12 +12,20 @@
 
 <body>
     <div class="container">
+    <div class="loadingpage">
+        <div class="tophalf"></div>
+        <div class="monopolyhead">
+            <p class="welcomemessage"></p>
+            <a href="#" class="myButton">Begin!</a>
+        </div>
+        <div class="lowerhalf"></div>
+    </div>
         <section class="questionarea">
             <header class="title">
                 <h1>Who wants to be a Munnyaire</h1>
             </header>
             <div class="questionssection">
-                <div class="questionbox">Question Box</div>
+                <div class="questionbox"><div class="monopolyquestionhead"></div><p class="messagearea"></p></div>
                 <div class="answersbox">
                     <div id="answer1">answer1</div>
                     <div id="answer2">answer2</div>
@@ -52,9 +60,13 @@
                     <div class="scoreslabel">1000000000</div>
                 </div>
             </div>
-            <div class="lifelines"><h2>Lifelines</h2></div>
+            <div class="lifelines"><h2>Lifelines</h2>
+            <button class="play_again">Play Again?</button></div>
         </section>
     </div>
 </body>
 <script src="main.js" type="module"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/typeit/6.5.1/typeit.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.0/gsap.min.js"></script>
+<script src="animations.js" type="module"></script>
 </html>
