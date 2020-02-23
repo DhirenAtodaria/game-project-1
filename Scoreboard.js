@@ -6,7 +6,7 @@ class Scoreboard {
 
     scoreEnumeration() {
         let scores = []
-        this.scoresLabels.forEach(item => scores.push(item.innerHTML));
+        this.scoresLabels.forEach(item => scores.push(item.dataset.value));
         console.log(scores);
         return scores;
     }
