@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Copperplate Gothic Light";
+    font-family: 'Abel';
 }
 
 .container {
@@ -118,7 +118,7 @@
 
             .questionbox {
                 width: 100%;
-                height: 30%;
+                height: 27%;
                 background-image: url(./images/Questionboxes.png);
                 background-size: cover;
                 background-position: center;
@@ -129,7 +129,7 @@
                 align-items: center;
 
                 .monopolyquestionhead {
-                    height: 165px;
+                    height: 135px;
                     width: 200px;
                     background-image: url("./images/monopolyhead.png");
                     background-size: contain;
@@ -217,17 +217,20 @@
                 justify-content: space-around;
                 align-items: center;
                 width: 80%;
-                height: 15%;
+                height: 20%;
+
+                #progressbar1 {
+                    height: 8px;
+                }
 
                 .progressbar {
-                    width: 80%;
-                    margin: 25px auto;
+                    width: 90%;
                 }
                 
                 .progressbar .inner {
                     border: solid 1px #000;
                     opacity: 1;
-                    height: 15px;
+                    height: 8px;
                     animation: progressbar-countdown;
                     /* Placeholder, this will be updated using javascript */
                     animation-duration: 40s;
@@ -293,7 +296,7 @@
                     width: 70%;
                     height: 30px;
                     text-align: left;
-                    margin: 5px;
+                    margin: 2px;
                     display: flex;
                     align-items: center;
                     padding-left: 10px;

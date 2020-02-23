@@ -112,11 +112,11 @@ class Game {
     loseReset() {
         this.messageArea.empty().go();
         let answerAnim = gsap.timeline()
-            answerAnim.to('#answer1', {duration: 0.5, opacity: 0})
-            answerAnim.to('#answer2', {duration: 0.5, opacity: 0})
-            answerAnim.to('#answer3', {duration: 0.5, opacity: 0})
-            answerAnim.to('#answer4', {duration: 0.5, opacity: 0})
-            answerAnim.to('.inner', {duration: 0.5, opacity: 0})
+            answerAnim.to('#answer1', {duration: 0.5, opacity: 0}, "0s")
+            answerAnim.to('#answer2', {duration: 0.5, opacity: 0}, "0s")
+            answerAnim.to('#answer3', {duration: 0.5, opacity: 0}, "0s")
+            answerAnim.to('#answer4', {duration: 0.5, opacity: 0}, "0s")
+            answerAnim.to('.inner', {duration: 0.5, opacity: 0}, "0s")
         this.answerInput = "";
         this.inputIndex = undefined;
         this.questionCounter = 0;
