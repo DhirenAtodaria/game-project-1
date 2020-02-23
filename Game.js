@@ -14,6 +14,7 @@ class Game {
         this.scoresLabels = scoresLabels;
         this.scoreBoard = new Board(scoreBoard);
         this.timeBox = timeBox;
+        this.inner;
         this.playAgainButton = playAgainButton;
         this.messageArea = new TypeIt(".messagearea", {speed: 50, waitUntilVisible: true});
         this.questionCounter = 0
@@ -25,24 +26,28 @@ class Game {
         this.submitButtonChecker = false;
     }
 
-    startTimer() {
-        const countDown = () => {
-            if (this.timeleft === 0) {
-                clearTimeout(this.timerID);
-                alert("You've lost");
-            } else {
-                this.timeBox.innerHTML = `${this.timeleft} seconds remaining`;
-                this.timeleft--;
-            }
-        };
-        countDown();
-        this.timerID = setInterval(countDown, 1000);
-    };
+    progressBarTimer() {
+        this.timeBox.className = 'progressbar';
+        this.inner = document.createElement('div');
+        this.inner.className = 'inner';
+        this.inner.style.animationDuration = "30s";
+    
+        this.inner.addEventListener('animationend', () => {
+            this.messageArea
+            .empty()
+            .type("Time's up!")
+            .pause(1000)
+            .delete()
+            .type("You've lost, click play-again to retry")
+            .go()
+        });
+        this.timeBox.appendChild(this.inner);
+        this.inner.style.animationPlayState = "running";
+    }
 
     stopTimer() {
-        clearTimeout(this.timerID);
-        this.timeleft = 30;
-        this.timeBox.innerHTML = "";
+        let currentTimerElem = document.querySelector('.inner');
+        currentTimerElem.style.animationPlayState = "paused";
     }
     
     questionSetter() {
@@ -70,7 +75,7 @@ class Game {
         .exec(() => {
             main.addingListener(this);
             if (this.questionCounter < 4) {
-                this.startTimer();
+                this.progressBarTimer();
             }})
         .go()
     }
@@ -94,7 +99,7 @@ class Game {
 
     nextQuestion() {
         if (this.questionCounter < 4) {
-            this.stopTimer();
+            this.inner.parentNode.removeChild(this.inner);
         }
         this.answerInput = "";
         this.inputIndex = undefined;
@@ -111,6 +116,7 @@ class Game {
             answerAnim.to('#answer2', {duration: 0.5, opacity: 0})
             answerAnim.to('#answer3', {duration: 0.5, opacity: 0})
             answerAnim.to('#answer4', {duration: 0.5, opacity: 0})
+            answerAnim.to('.inner', {duration: 0.5, opacity: 0})
         this.answerInput = "";
         this.inputIndex = undefined;
         this.questionCounter = 0;
@@ -118,7 +124,6 @@ class Game {
             item.classList = "";
         });
         this.scoresLabels.forEach(item => item.classList = "");
-        this.stopTimer();
         console.log("this has happened but why?")
         this.questionGetter();
     };
@@ -163,7 +168,7 @@ class Game {
         .exec(() => {
             main.addingListener(this);
             if (this.questionCounter < 4) {
-                this.startTimer();
+                this.progressBarTimer();
             }})
         .go()
     }

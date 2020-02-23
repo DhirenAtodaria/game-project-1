@@ -267,31 +267,54 @@
   height: 15%;
 }
 
-.container .questionarea .questionssection .submitarea .submit {
-  border-radius: 100px;
-  color: #FFFFFF;
-  font-size: 18px;
-  font-weight: 100;
-  padding: 15px 30px;
-  background-color: #000000;
-  box-shadow: 1px 1px 20px 0px #000000;
-  -webkit-box-shadow: 1px 1px 20px 0px #000000;
-  -moz-box-shadow: 1px 1px 20px 0px #000000;
-  text-shadow: 1px 1px 20px #000000;
-  border: solid #5CABE3 3px;
-  text-decoration: none;
-  display: inline-block;
-  cursor: pointer;
-  text-align: center;
+.container .questionarea .questionssection .submitarea .progressbar {
+  width: 80%;
+  margin: 25px auto;
 }
 
-.container .questionarea .questionssection .submitarea .submit:hover {
-  border: solid #337FED 3px;
-  background: #5CABE3;
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#5CABE3), to(#2364AD));
-  background-image: linear-gradient(to bottom, #5CABE3, #2364AD);
-  border-radius: 100px;
-  text-decoration: none;
+.container .questionarea .questionssection .submitarea .progressbar .inner {
+  border: solid 1px #000;
+  opacity: 1;
+  height: 15px;
+  -webkit-animation: progressbar-countdown;
+          animation: progressbar-countdown;
+  /* Placeholder, this will be updated using javascript */
+  -webkit-animation-duration: 40s;
+          animation-duration: 40s;
+  /* We stop in the end */
+  -webkit-animation-iteration-count: 1;
+          animation-iteration-count: 1;
+  /* Stay on pause when the animation is finished finished */
+  -webkit-animation-fill-mode: forwards;
+          animation-fill-mode: forwards;
+  /* We start paused, we start the animation using javascript */
+  -webkit-animation-play-state: paused;
+          animation-play-state: paused;
+  /* We want a linear animation, ease-out is standard */
+  -webkit-animation-timing-function: linear;
+          animation-timing-function: linear;
+}
+
+@-webkit-keyframes progressbar-countdown {
+  0% {
+    width: 100%;
+    background: #0F0;
+  }
+  100% {
+    width: 0%;
+    background: #F00;
+  }
+}
+
+@keyframes progressbar-countdown {
+  0% {
+    width: 100%;
+    background: #0F0;
+  }
+  100% {
+    width: 0%;
+    background: #F00;
+  }
 }
 
 .container .scoresarea {
@@ -407,5 +430,33 @@
 
 .container .scoresarea .lifelines .lloptions .paf {
   background-image: url("./images/ClassicPAF.png");
+}
+
+button {
+  border-radius: 100px;
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 100;
+  padding: 15px 30px;
+  background-color: #000000;
+  box-shadow: 1px 1px 20px 0px #000000;
+  -webkit-box-shadow: 1px 1px 20px 0px #000000;
+  -moz-box-shadow: 1px 1px 20px 0px #000000;
+  text-shadow: 1px 1px 20px #000000;
+  border: solid #5CABE3 3px;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+  outline: none;
+}
+
+button:hover {
+  border: solid #337FED 3px;
+  background: #5CABE3;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#5CABE3), to(#2364AD));
+  background-image: linear-gradient(to bottom, #5CABE3, #2364AD);
+  border-radius: 100px;
+  text-decoration: none;
 }
 /*# sourceMappingURL=styles.css.map */

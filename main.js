@@ -13,6 +13,7 @@ export const answerChecker = (inputAnswer) => {
             answerAnim.to('#answer2', {duration: 0.5, opacity: 0})
             answerAnim.to('#answer3', {duration: 0.5, opacity: 0})
             answerAnim.to('#answer4', {duration: 0.5, opacity: 0})
+            answerAnim.to('.inner', {duration: 0.5, opacity:0})
     })
     .delete()
     .type("YOU'VE WON!!!")
@@ -46,6 +47,7 @@ export const addingListener = (game) => {
       if (game.inputIndex) {
           game.submitButtonChecker = true;
           game.stopTimer();
+          game.animationStatus = "paused";
           answerChecker(game);
       } else {
           alert("Click an answer Please");
@@ -67,6 +69,7 @@ export const addingListener = (game) => {
   }, {once: true});
 
   game.playAgainButton.addEventListener("click", () => {
+    game.inner.parentNode.removeChild(game.inner);
     game.submitButtonChecker = false;
     game.loseReset();
     }, {once: true});
@@ -76,7 +79,7 @@ export let questionBox = document.querySelector('.messagearea');
 export let answerBoxes = document.querySelectorAll('.answersbox div');
 export let submitButton = document.querySelector('.submit');
 export let scoresLabels = document.querySelectorAll('.scoreslabel');
-export let timeBox = document.querySelector('.timer');
+export let timeBox = document.getElementById("progressbar1");
 export let playAgain = document.querySelector('.play_again');
 
 export let newGame = new Game(questionBox, answerBoxes, submitButton, scoresLabels, timeBox, playAgain, scoresLabels);
