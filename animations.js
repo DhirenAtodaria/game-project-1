@@ -1,24 +1,23 @@
 import * as myModule from "./main.js"
 
+let startButton = document.querySelector('.myButton')
+let firstTimeline = gsap.timeline();
 let afterWelcomeCompletion = () => {
-    new TypeIt(".welcomemessage", {speed: 100, waitUntilVisible:true})
+    new TypeIt(".welcomemessage", {speed: 50, waitUntilVisible:true})
     .type('Welcome to Who wants to be a Munnyaire.')
     .pause(1000)
-    .delete(40)
+    .delete()
     .pause(1000)
     .type('This is the game where if you answer 15 questions correctly... ')
     .pause(1000)
     .type('You become $$$RICH$$$')
     .pause(1000)
-    .delete(84)
-    .type('For the first 5 questions you have a 30sec timer. Click start to begin the game')
+    .delete()
+    .type('For the first 5 questions you have a 30sec timer. Click begin to start the game')
     .go()
 }
 
-let startButton = document.querySelector('.myButton')
-let firstTimeline = gsap.timeline();
-
-gsap.to(".monopolyhead", {duration: 2, x: "50%", ease: "bounce", onComplete: afterWelcomeCompletion})
+gsap.to(".monopolyhead", {duration: 2, x: "100%", ease: "bounce", onComplete: afterWelcomeCompletion})
 
 startButton.addEventListener("click", () => {
     myModule.newGame.questionGetter();

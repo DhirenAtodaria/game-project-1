@@ -3,12 +3,12 @@
   padding: 0;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  font-family: 'Alegreya Sans', sans-serif;
+  font-family: "Copperplate Gothic Light";
 }
 
 .container {
-  width: 90vw;
-  height: 90vh;
+  width: 100vw;
+  height: 100vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -81,7 +81,9 @@
 .container .questionarea {
   height: 100%;
   width: 70%;
-  border: 2px solid blue;
+  background-image: url("./images/backgroundimage.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
   text-align: center;
 }
 
@@ -89,23 +91,31 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 38px;
+  font-size: 34px;
   font-weight: bold;
   height: 20%;
   width: 100%;
-  border: 2px solid black;
+  color: white;
+}
+
+.container .questionarea .title .logo {
+  height: 150px;
+  width: 15%;
+  background-image: url("./images/logo.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .container .questionarea .questionssection {
   height: 80%;
   width: 100%;
-  border: 2px solid green;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -122,37 +132,40 @@
 }
 
 .container .questionarea .questionssection .questionbox {
-  width: 80%;
+  width: 100%;
   height: 30%;
-  border: 2px solid bisque;
+  background-image: url(./images/Questionboxes.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: space-evenly;
-      -ms-flex-pack: space-evenly;
-          justify-content: space-evenly;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
 }
 
 .container .questionarea .questionssection .questionbox .monopolyquestionhead {
-  height: 70%;
-  width: 30%;
+  height: 165px;
+  width: 200px;
   background-image: url("./images/monopolyhead.png");
   background-size: contain;
   background-repeat: no-repeat;
 }
 
 .container .questionarea .questionssection .questionbox .messagearea {
-  width: 50%;
-  font-size: 18px;
+  color: white;
+  width: 45%;
+  font-size: 24px;
 }
 
 .container .questionarea .questionssection .answersbox {
-  width: 80%;
+  width: 100%;
   height: 50%;
-  border: 2px solid orange;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 0.5fr 2fr 2fr 0.5fr;
@@ -163,11 +176,15 @@
 }
 
 .container .questionarea .questionssection .answersbox #answer1, .container .questionarea .questionssection .answersbox #answer2, .container .questionarea .questionssection .answersbox #answer3, .container .questionarea .questionssection .answersbox #answer4 {
-  opacity: 0;
+  font-size: 24px;
+  opacity: 1;
 }
 
 .container .questionarea .questionssection .answersbox div {
-  border: 2px solid green;
+  color: white;
+  border: 5px solid #5cabe3;
+  background-color: black;
+  border-radius: 50px;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -185,6 +202,7 @@
 
 .container .questionarea .questionssection .answersbox .selectedstyle {
   background-color: yellow;
+  color: black;
 }
 
 .container .questionarea .questionssection .answersbox .correctanswer {
@@ -193,6 +211,7 @@
 
 .container .questionarea .questionssection .answersbox .incorrectanswer {
   background-color: red;
+  color: black;
 }
 
 .container .questionarea .questionssection .answersbox #answer1 {
@@ -254,7 +273,9 @@
 .container .scoresarea {
   height: 100%;
   width: 30%;
-  border: 2px solid blue;
+  background-color: black;
+  border-left: 2px solid white;
+  color: white;
 }
 
 .container .scoresarea div {
@@ -264,7 +285,16 @@
 .container .scoresarea .scores {
   width: 100%;
   height: 70%;
-  border: 2px solid blue;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
 .container .scoresarea .scores .all {
@@ -285,18 +315,27 @@
 
 .container .scoresarea .scores .all .scorestyle {
   background-color: greenyellow;
+  color: black;
+  border: 2px solid white;
+  font-weight: bold;
 }
 
 .container .scoresarea .scores .all div {
-  width: 90%;
-  height: 5%;
-  border: 2px solid green;
-  margin: 2px;
+  width: 70%;
+  height: 30px;
+  text-align: left;
+  margin: 5px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-left: 10px;
 }
 
 .container .scoresarea .lifelines {
   width: 100%;
   height: 30%;
-  border: 2px solid black;
 }
 /*# sourceMappingURL=styles.css.map */
