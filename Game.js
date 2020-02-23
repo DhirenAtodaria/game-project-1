@@ -75,7 +75,7 @@ class Game {
         .go()
     }
 
-    answerSetter = () => {
+    answerSetter() {
         let randomNumber = Math.floor(Math.random()*4);
         this.answerBoxes[randomNumber].innerHTML = this.questions[this.questionCounter].correctAnswer;
 
@@ -104,7 +104,7 @@ class Game {
         this.buildQuiz();
     };
 
-    loseReset = () => {
+    loseReset() {
         this.messageArea.empty().go();
         let answerAnim = gsap.timeline()
             answerAnim.to('#answer1', {duration: 0.5, opacity: 0})

@@ -177,7 +177,7 @@
 
 .container .questionarea .questionssection .answersbox #answer1, .container .questionarea .questionssection .answersbox #answer2, .container .questionarea .questionssection .answersbox #answer3, .container .questionarea .questionssection .answersbox #answer4 {
   font-size: 24px;
-  opacity: 1;
+  opacity: 0;
 }
 
 .container .questionarea .questionssection .answersbox div {
@@ -254,20 +254,44 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
   width: 80%;
-  height: 10%;
-  border: 2px solid blueviolet;
+  height: 15%;
 }
 
 .container .questionarea .questionssection .submitarea .submit {
-  height: 80%;
-  width: 30%;
+  border-radius: 100px;
+  color: #FFFFFF;
+  font-size: 18px;
+  font-weight: 100;
+  padding: 15px 30px;
+  background-color: #000000;
+  box-shadow: 1px 1px 20px 0px #000000;
+  -webkit-box-shadow: 1px 1px 20px 0px #000000;
+  -moz-box-shadow: 1px 1px 20px 0px #000000;
+  text-shadow: 1px 1px 20px #000000;
+  border: solid #5CABE3 3px;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  text-align: center;
+}
+
+.container .questionarea .questionssection .submitarea .submit:hover {
+  border: solid #337FED 3px;
+  background: #5CABE3;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#5CABE3), to(#2364AD));
+  background-image: linear-gradient(to bottom, #5CABE3, #2364AD);
+  border-radius: 100px;
+  text-decoration: none;
 }
 
 .container .scoresarea {
@@ -337,5 +361,51 @@
 .container .scoresarea .lifelines {
   width: 100%;
   height: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.container .scoresarea .lifelines .lloptions {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 100%;
+}
+
+.container .scoresarea .lifelines .lloptions div {
+  height: 55px;
+  width: 65px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.container .scoresarea .lifelines .lloptions .fifty50 {
+  background-image: url("./images/Classic5050.png");
+}
+
+.container .scoresarea .lifelines .lloptions .audience {
+  background-image: url("./images/ClassicATA.png");
+}
+
+.container .scoresarea .lifelines .lloptions .paf {
+  background-image: url("./images/ClassicPAF.png");
 }
 /*# sourceMappingURL=styles.css.map */
