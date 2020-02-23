@@ -50,12 +50,13 @@
                 font-family:Arial;
                 font-size:19px;
                 font-weight:bold;
-                padding:6px 24px;
+                padding:6px 54px;
                 text-decoration:none;
                 text-shadow:0px 1px 0px #ffffff;
                 position: absolute;
                 top: 110%;
-                left: 35%;
+                left: 250%;
+                // opacity: 0;
             }
             .myButton:hover {
                 background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
@@ -134,6 +135,7 @@
                     background-image: url("./images/monopolyhead.png");
                     background-size: contain;
                     background-repeat: no-repeat;
+                    opacity: 0;
                 }
 
                 .messagearea {
@@ -338,6 +340,12 @@
                     background-image: url("./images/ClassicPAF.png");
                 }
                 
+            }
+
+            .buttons {
+                display: flex;
+                justify-content: space-evenly;
+                width: 100%;
             }
         }
     }

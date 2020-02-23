@@ -3,7 +3,7 @@ import Board from "./Scoreboard.js"
 import * as main from "./main.js"
 
 class Game {
-    constructor(questionBox, answerBoxes, submitButton, scoresLabels, timeBox, playAgainButton, scoreBoard) {
+    constructor(questionBox, answerBoxes, submitButton, scoresLabels, timeBox, playAgainButton, scoreBoard, fifty50, paf) {
         this.urls =  [
             'https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple',
             'https://opentdb.com/api.php?amount=5&difficulty=medium&type=multiple',
@@ -14,6 +14,12 @@ class Game {
         this.scoresLabels = scoresLabels;
         this.timeBox = timeBox;
         this.playAgainButton = playAgainButton;
+        this.fifty50Clicker = fifty50;
+        this.pafClicker = paf;
+        this.people = ["Dad", "Ollie", "Andy", "Sam", "Sunny", "Dhiren", "Stephen", "Sergiu"]
+        this.selectedPerson = "Johnny J";
+        this.currentCorrectAnswer;
+        this.currentIncorrectAnswers;
         this.scoreBoard = new Board(scoreBoard);
         this.messageArea = new TypeIt(".messagearea", {speed: 50, waitUntilVisible: true});
         this.questionCounter = 0
@@ -21,6 +27,7 @@ class Game {
         this.inputIndex;
         this.submitButtonChecker = false;
         this.inner;
+
         // this.questions is an array which holds all 15 of my question objects.
         this.questions;
         
@@ -49,8 +56,17 @@ class Game {
         let currentTimerElem = document.querySelector('.inner');
         currentTimerElem.style.animationPlayState = "paused";
     }
+
+    startTimer() {
+        let currentTimerElem = document.querySelector('.inner');
+        currentTimerElem.style.animationPlayState = "running";
+    }
     
     questionSetter() {
+        console.log(this.selectedPerson);
+        let randomPersonNumber = Math.floor(Math.random()*8)
+        this.selectedPerson = this.people[randomPersonNumber];
+        console.log(this.selectedPerson)
         let currentQuestion = this.questions[this.questionCounter].question
         this.messageArea
         .pause(4000)
@@ -73,8 +89,8 @@ class Game {
         .delete()
         .type(`${currentQuestion}`)
         .exec(() => {
-            main.addingListener(this);
-            if (this.questionCounter < 4) {
+            main.addingQuestionListeners(this);
+            if (this.questionCounter <= 4) {
                 this.progressBarTimer();
             }})
         .go()
@@ -82,23 +98,28 @@ class Game {
 
     answerSetter() {
         let randomNumber = Math.floor(Math.random()*4);
-        this.answerBoxes[randomNumber].innerHTML = this.questions[this.questionCounter].correctAnswer;
+        this.currentCorrectAnswer = this.questions[this.questionCounter].correctAnswer
+        this.answerBoxes[randomNumber].innerHTML = this.currentCorrectAnswer;
 
         let i = 0;
+        this.currentIncorrectAnswers = [];
         this.answerBoxes.forEach(item => {
         if (item !== this.answerBoxes[randomNumber]) {
+            this.currentIncorrectAnswers.push(item);
             item.innerHTML = this.questions[this.questionCounter].incorrectAnswers[i];
             i++;
             }
         });
+        console.log(this.currentCorrectAnswer);
+        console.log(this.currentIncorrectAnswers);
     };
     
     get finalAnswerValue() {
-        return this.answerInput === (this.questions)[this.questionCounter].correctAnswer;
+        return this.answerInput === this.currentCorrectAnswer;
     }
 
     nextQuestion() {
-        if (this.questionCounter < 4) {
+        if (this.questionCounter <= 4) {
             this.inner.parentNode.removeChild(this.inner);
         }
         this.answerInput = "";
@@ -166,12 +187,20 @@ class Game {
         .delete()
         .type(`${currentQuestion}`)
         .exec(() => {
-            main.addingListener(this);
-            if (this.questionCounter < 4) {
+            main.addingQuestionListeners(this);
+            main.addingResetListener(this);
+            main.addingLifelineListener(this);
+            if (this.questionCounter <= 4) {
                 this.progressBarTimer();
             }})
         .go()
     }
+    
+    fifty50() {
+        let randomNumber2 = Math.floor(Math.random()*2);
+        this.currentIncorrectAnswers[2].style.opacity = 0;
+        this.currentIncorrectAnswers[randomNumber2].style.opacity = 0;
+    };
 
     buildQuiz() {
         this.questionSetter();

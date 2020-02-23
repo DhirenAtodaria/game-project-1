@@ -41,7 +41,7 @@ export const answerChecker = (inputAnswer) => {
   }
 };
 
-export const addingListener = (game) => {
+export const addingQuestionListeners = (game) => {
   console.log("listeneron");
   game.submitButton.addEventListener("click", () => {
       if (game.inputIndex) {
@@ -67,19 +67,93 @@ export const addingListener = (game) => {
         }
     })
   }, {once: true});
+};
 
+export const addingResetListener = (game) => {
+  console.log("added reset listener");
   game.playAgainButton.addEventListener("click", () => {
     game.inner.parentNode.removeChild(game.inner);
     game.submitButtonChecker = false;
     game.loseReset();
     }, {once: true});
-};
+}
+
+export const addingLifelineListener = (game) => {
+  game.fifty50Clicker.addEventListener("click", () => {
+    game.stopTimer();
+    game.messageArea
+    .empty()
+    .type("Well you want to use a lifeline?")
+    .pause(1000)
+    .delete()
+    .type("Computer, please remove 2 of the incorrect answers from the page")
+    .pause(1000)
+    .exec(() => {game.fifty50();})
+    .delete()
+    .type("2 incorrect answers have been removed. Goodluck")
+    .exec(() => {
+      if (game.questionCounter <= 4) {
+        game.startTimer();
+      }
+    })
+    .go();
+  }, {once: true});
+
+  game.pafClicker.addEventListener("click", () => {
+    game.stopTimer();
+    game.messageArea
+    .empty()
+    .type("Hold the clock. So, who do you want me to Ring?")
+    .pause(1000)
+    .delete()
+    .type("You want me to phone... ")
+    .pause(1000)
+    .type(`${game.selectedPerson}?`)
+    .pause(1000)
+    .delete()
+    .type(`Well okay then. Calling ${game.selectedPerson}.`)
+    .pause(1000)
+    .delete()
+    .type("Ring... Ring... ")
+    .pause(1000)
+    .type(`Hello? `)
+    .pause(500)
+    .type(`${game.selectedPerson}`)
+    .pause(1000)
+    .delete()
+    .type("Hello, yes this is Monopoly man and we're currently playing Who wants to be a Munnyaire.")
+    .pause(500)
+    .delete()
+    .type(`Yes the current question is for ${game.scoreBoard.scores[game.questionCounter]} munnys.`)
+    .pause(1000)
+    .delete()
+    .type("The question is... ")
+    .pause(1500)
+    .delete()
+    .type("<em>after some time of talking... </em>")
+    .pause(2500)
+    .type(`${game.selectedPerson} thinks the answer is ${game.currentCorrectAnswer}.`)
+    .exec(() => {
+      if (game.questionCounter <= 4) {
+        game.startTimer();
+      }
+    })
+    .go()
+  }, {once: true});
+}
+
+export const addingTakeMoneyButton = (game) => {
+  game.takeMoneyButton.addEventListener("click", )
+}
 
 export let questionBox = document.querySelector('.messagearea');
 export let answerBoxes = document.querySelectorAll('.answersbox div');
 export let submitButton = document.querySelector('.submit');
 export let scoresLabels = document.querySelectorAll('.scoreslabel');
-export let timeBox = document.getElementById("progressbar1");
+export let timeBox = document.getElementById('progressbar1');
 export let playAgain = document.querySelector('.play_again');
+export let fifty50Button = document.querySelector('.fifty50');
+export let pafButton = document.querySelector('.paf');
+export let takeMoneyButton = document.querySelector('.takemoney');
 
-export let newGame = new Game(questionBox, answerBoxes, submitButton, scoresLabels, timeBox, playAgain, scoresLabels);
+export let newGame = new Game(questionBox, answerBoxes, submitButton, scoresLabels, timeBox, playAgain, scoresLabels, fifty50Button, pafButton);
