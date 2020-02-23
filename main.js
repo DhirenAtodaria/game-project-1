@@ -1,5 +1,3 @@
-import Game from "./Game.js"
-
 export const answerChecker = (inputAnswer) => {
   if (inputAnswer.finalAnswerValue) {
     inputAnswer.inputIndex.classList.add("correctanswer");
@@ -34,8 +32,8 @@ export const answerChecker = (inputAnswer) => {
         .type("Sorry, you've lost")
         .pause(1000)
         .delete()
-        .type("I'm afraid you're leaving with nothing")
-        //     inputAnswer.messageArea.type("You're leaving here with 10000 munnys.")
+        .type("I'm afraid you're leaving with nothing... ")
+        .pause(750)
         .type("Better luck next time.")
         .pause(1000)
         .delete()
@@ -58,7 +56,6 @@ export const answerChecker = (inputAnswer) => {
 };
 
 export const addingQuestionListeners = (game) => {
-  console.log("listeneron");
   game.submitButton.addEventListener("click", () => {
       if (game.inputIndex) {
           game.submitButtonChecker = true;
@@ -68,7 +65,6 @@ export const addingQuestionListeners = (game) => {
       } else {
           alert("Click an answer Please");
       }
-    console.log("triggerd?");
   }, {once: true});
 
   game.answerBoxes.forEach(item => {
@@ -86,7 +82,6 @@ export const addingQuestionListeners = (game) => {
 };
 
 export const addingResetListener = (game) => {
-  console.log("added reset listener");
   game.playAgainButton.addEventListener("click", () => {
     game.inner.parentNode.removeChild(game.inner);
     game.submitButtonChecker = false;
@@ -94,8 +89,9 @@ export const addingResetListener = (game) => {
     }, {once: true});
 }
 
-export const addingLifelineListener = (game) => {
+export const adding5050 = (game) => {
   game.fifty50Clicker.addEventListener("click", () => {
+    game.fifty50Used++;
     game.stopTimer();
     game.messageArea
     .empty()
@@ -114,47 +110,13 @@ export const addingLifelineListener = (game) => {
     })
     .go();
   }, {once: true});
+}
 
+export const addingPaf = (game) => {
   game.pafClicker.addEventListener("click", () => {
+    game.pafUsed++;
     game.stopTimer();
-    game.messageArea
-    .empty()
-    .type("Hold the clock. So, who do you want me to Ring?")
-    .pause(1000)
-    .delete()
-    .type("You want me to phone... ")
-    .pause(1000)
-    .type(`${game.selectedPerson}?`)
-    .pause(1000)
-    .delete()
-    .type(`Well okay then. Calling ${game.selectedPerson}.`)
-    .pause(1000)
-    .delete()
-    .type("Ring... Ring... ")
-    .pause(1000)
-    .type(`Hello? `)
-    .pause(500)
-    .type(`${game.selectedPerson}`)
-    .pause(1000)
-    .delete()
-    .type("Hello, yes this is Monopoly man and we're currently playing Who wants to be a Munnyaire.")
-    .pause(500)
-    .delete()
-    .type(`Yes the current question is for ${game.scoreBoard.scores[game.questionCounter]} munnys.`)
-    .pause(1000)
-    .delete()
-    .type("The question is... ")
-    .pause(1500)
-    .delete()
-    .type("<em>after some time of talking... </em>")
-    .pause(2500)
-    .type(`${game.selectedPerson} thinks the answer is ${game.currentCorrectAnswer}.`)
-    .exec(() => {
-      if (game.questionCounter <= 4) {
-        game.startTimer();
-      }
-    })
-    .go()
+    game.paf();
   }, {once: true});
 }
 
@@ -186,15 +148,3 @@ export const addingTakeMoneyButton = (game) => {
     }
   })
 }
-
-export let questionBox = document.querySelector('.messagearea');
-export let answerBoxes = document.querySelectorAll('.answersbox div');
-export let submitButton = document.querySelector('.submit');
-export let scoresLabels = document.querySelectorAll('.scoreslabel');
-export let timeBox = document.getElementById('progressbar1');
-export let playAgain = document.querySelector('.play_again');
-export let fifty50Button = document.querySelector('.fifty50');
-export let pafButton = document.querySelector('.paf');
-export let takeMoneyButton = document.querySelector('.Takemoney');
-
-export let newGame = new Game(questionBox, answerBoxes, submitButton, scoresLabels, timeBox, playAgain, takeMoneyButton, scoresLabels, fifty50Button, pafButton);
