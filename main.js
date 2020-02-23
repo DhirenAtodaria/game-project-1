@@ -28,16 +28,32 @@ export const answerChecker = (inputAnswer) => {
                             inputAnswer.nextQuestion();}, 6000);      
   } else {
     inputAnswer.inputIndex.classList.add("incorrectanswer");
-    (inputAnswer.messageArea
-      .delete()
-      .type("Sorry, you've lost all the munnys")
-      .pause(1000)
-      .delete()
-      .type("Better luck next time.")
-      .pause(1000)
-      .delete()
-      .type("Click the play-again button to try again")
-      .go());
+    if (inputAnswer.questionCounter < 4) {
+      (inputAnswer.messageArea
+        .delete()
+        .type("Sorry, you've lost")
+        .pause(1000)
+        .delete()
+        .type("I'm afraid you're leaving with nothing")
+        //     inputAnswer.messageArea.type("You're leaving here with 10000 munnys.")
+        .type("Better luck next time.")
+        .pause(1000)
+        .delete()
+        .type("Click the play-again button to try again")
+        .go());
+    } else {
+      (inputAnswer.messageArea
+        .delete()
+        .type("Sorry, you've lost")
+        .pause(1000)
+        .delete()
+        .type("You're leaving here with 10000 munnys.")
+        .type("Well done, but you can do better next time.")
+        .pause(1000)
+        .delete()
+        .type("Click the play-again button to try again")
+        .go());
+    }
   }
 };
 
@@ -143,7 +159,32 @@ export const addingLifelineListener = (game) => {
 }
 
 export const addingTakeMoneyButton = (game) => {
-  game.takeMoneyButton.addEventListener("click", )
+  game.takeMoneyButton.addEventListener("click", () => {
+    game.stopTimer();
+    if (game.questionCounter === 0) {
+      game.messageArea
+      .empty()
+      .type("Well done for getting this far.")
+      .pause(1000)
+      .delete()
+      .type(`You haven't won anything unfortunately, better luck next time.`)
+      .pause(1500)
+      .delete()
+      .type("To play again, click the play again button.")
+      .go()
+    } else {
+      game.messageArea
+      .empty()
+      .type("Well done for getting this far.")
+      .pause(1000)
+      .delete()
+      .type(`You've won ${game.scoreBoard.scores[game.questionCounter - 1]} munnys. Well done.`)
+      .pause(1500)
+      .delete()
+      .type("To play again, click the play again button.")
+      .go()
+    }
+  })
 }
 
 export let questionBox = document.querySelector('.messagearea');
@@ -154,6 +195,6 @@ export let timeBox = document.getElementById('progressbar1');
 export let playAgain = document.querySelector('.play_again');
 export let fifty50Button = document.querySelector('.fifty50');
 export let pafButton = document.querySelector('.paf');
-export let takeMoneyButton = document.querySelector('.takemoney');
+export let takeMoneyButton = document.querySelector('.Takemoney');
 
-export let newGame = new Game(questionBox, answerBoxes, submitButton, scoresLabels, timeBox, playAgain, scoresLabels, fifty50Button, pafButton);
+export let newGame = new Game(questionBox, answerBoxes, submitButton, scoresLabels, timeBox, playAgain, takeMoneyButton, scoresLabels, fifty50Button, pafButton);

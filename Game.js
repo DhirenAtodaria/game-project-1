@@ -3,7 +3,7 @@ import Board from "./Scoreboard.js"
 import * as main from "./main.js"
 
 class Game {
-    constructor(questionBox, answerBoxes, submitButton, scoresLabels, timeBox, playAgainButton, scoreBoard, fifty50, paf) {
+    constructor(questionBox, answerBoxes, submitButton, scoresLabels, timeBox, playAgainButton, takeMoneyButton, scoreBoard, fifty50, paf) {
         this.urls =  [
             'https://opentdb.com/api.php?amount=5&difficulty=easy&type=multiple',
             'https://opentdb.com/api.php?amount=5&difficulty=medium&type=multiple',
@@ -14,6 +14,7 @@ class Game {
         this.scoresLabels = scoresLabels;
         this.timeBox = timeBox;
         this.playAgainButton = playAgainButton;
+        this.takeMoneyButton = takeMoneyButton;
         this.fifty50Clicker = fifty50;
         this.pafClicker = paf;
         this.people = ["Dad", "Ollie", "Andy", "Sam", "Sunny", "Dhiren", "Stephen", "Sergiu"]
@@ -22,8 +23,8 @@ class Game {
         this.currentIncorrectAnswers;
         this.scoreBoard = new Board(scoreBoard);
         this.messageArea = new TypeIt(".messagearea", {speed: 50, waitUntilVisible: true});
-        this.questionCounter = 0
-        this.answerInput = ""
+        this.questionCounter = 0;
+        this.answerInput = "";
         this.inputIndex;
         this.submitButtonChecker = false;
         this.inner;
@@ -153,14 +154,14 @@ class Game {
         let currentQuestion = this.questions[this.questionCounter].question;
         this.answerSetter();
         this.messageArea
-        .pause(4000)
-        .type("Hello and welcome to who wants to be a MUNNYAIRE")
-        .pause(1000)
-        .delete()
-        .type("Get ready for your first question, which is worth a whopping 500 munnys")
-        .pause(500)
-        .delete()
-        .type("Here are the answers to the first question")
+        // .pause(4000)
+        // .type("Hello and welcome to who wants to be a MUNNYAIRE")
+        // .pause(1000)
+        // .delete()
+        // .type("Get ready for your first question, which is worth a whopping 500 munnys")
+        // .pause(500)
+        // .delete()
+        // .type("Here are the answers to the first question")
         .exec(() => {
             let answerAnim = gsap.timeline()
             answerAnim.to('#answer1', {duration: 1, opacity: 1})
@@ -168,28 +169,29 @@ class Game {
             answerAnim.to('#answer3', {duration: 1, opacity: 1})
             answerAnim.to('#answer4', {duration: 1, opacity: 1})
         })
-        .pause(2000)
-        .delete()
-        .type("To select an answer, please click on any of the 4 answers.")
-        .pause(1000)
-        .delete()
-        .type("Once selected you can change your answer as much as you like.")
-        .pause(1000)
-        .delete()
-        .type("After you've made your decision, click the final button to lock in your answer.")
-        .pause(1000)
-        .delete()
-        .type("If you're right you'll proceed to the next question, if wrong you'll lose. Good luck.")
-        .pause(1000)
-        .delete()
-        .type(`And here is the question for 500 Munnys`)
-        .pause(1000)
-        .delete()
+        // .pause(2000)
+        // .delete()
+        // .type("To select an answer, please click on any of the 4 answers.")
+        // .pause(1000)
+        // .delete()
+        // .type("Once selected you can change your answer as much as you like.")
+        // .pause(1000)
+        // .delete()
+        // .type("After you've made your decision, click the final button to lock in your answer.")
+        // .pause(1000)
+        // .delete()
+        // .type("If you're right you'll proceed to the next question, if wrong you'll lose. Good luck.")
+        // .pause(1000)
+        // .delete()
+        // .type(`And here is the question for 500 Munnys`)
+        // .pause(1000)
+        // .delete()
         .type(`${currentQuestion}`)
         .exec(() => {
             main.addingQuestionListeners(this);
             main.addingResetListener(this);
             main.addingLifelineListener(this);
+            main.addingTakeMoneyButton(this);
             if (this.questionCounter <= 4) {
                 this.progressBarTimer();
             }})
