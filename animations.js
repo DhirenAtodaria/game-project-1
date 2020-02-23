@@ -29,11 +29,5 @@ startButton.addEventListener("click", () => {
 
 
 
-// afterString: function(step, queue, instance) {
-//     instance.pause(1000).empty();
-//   },
-
-
-
 
 

@@ -12,18 +12,18 @@ class Game {
         this.answerBoxes = answerBoxes;
         this.submitButton = submitButton;
         this.scoresLabels = scoresLabels;
-        this.scoreBoard = new Board(scoreBoard);
         this.timeBox = timeBox;
-        this.inner;
         this.playAgainButton = playAgainButton;
+        this.scoreBoard = new Board(scoreBoard);
         this.messageArea = new TypeIt(".messagearea", {speed: 50, waitUntilVisible: true});
         this.questionCounter = 0
         this.answerInput = ""
         this.inputIndex;
-        this.questions;
-        this.timerID;
-        this.timeleft = 30;
         this.submitButtonChecker = false;
+        this.inner;
+        // this.questions is an array which holds all 15 of my question objects.
+        this.questions;
+        
     }
 
     progressBarTimer() {
