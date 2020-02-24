@@ -18,6 +18,7 @@ class Game {
         this.fifty50Clicker = fifty50;
         this.pafClicker = paf;
         this.firstQuestionListeners = true;
+        this.finishedTalking;
         this.fifty50Used = 0;
         this.pafUsed = 0
         this.people = ["Dad", "Ollie", "Andy", "Sam", "Sunny", "Dhiren", "Stephen", "Sergiu"]
@@ -71,6 +72,10 @@ class Game {
             let currentQuestion = this.questions[this.questionCounter].question;
             this.answerSetter();
             this.messageArea
+            .exec(() => {
+                this.finishedTalking = false;
+                console.log("finishedtalking false")
+            })
             .pause(4000)
             .type("Hello and welcome to who wants to be a MUNNYAIRE")
             .pause(1000)
@@ -106,22 +111,36 @@ class Game {
             .type(`${currentQuestion}`)
             .exec(() => {
                 main.addingQuestionListeners(this);
-                main.addingResetListener(this);
                 if (this.firstQuestionListeners) {
                         this.firstQuestionListeners = false;
                         main.adding5050(this);
                         main.addingPaf(this);
+                        main.addingResetListener(this);
+                        main.addingTakeMoneyButton(this);
                 }
-                main.addingTakeMoneyButton(this);
+                if (this.fifty50Used === 1) {
+                    main.adding5050(this);
+                }
+                if (this.pafUsed === 1) {
+                    main.addingPaf(this);
+                }
                 if (this.questionCounter <= 4) {
                     this.progressBarTimer();
-                }})
+                }
+                this.finishedTalking = true
+                console.log("finishedtalking true");
+            })
             .go()
         } else {
             let randomPersonNumber = Math.floor(Math.random()*8)
             this.selectedPerson = this.people[randomPersonNumber];
             let currentQuestion = this.questions[this.questionCounter].question
+
             this.messageArea
+            .exec(() => {
+                this.finishedTalking = false;
+                console.log("finishedtalking false")
+            })
             .pause(4000)
             .type("Next Question")
             .pause(1000)
@@ -143,12 +162,7 @@ class Game {
             .type(`${currentQuestion}`)
             .exec(() => {
                 main.addingQuestionListeners(this);
-                if (this.fifty50Used === 1) {
-                    main.adding5050(this);
-                }
-                if (this.pafUsed === 1) {
-                    main.addingPaf(this);
-                }
+                this.finishedTalking = true;
                 if (this.questionCounter <= 4) {
                     this.progressBarTimer();
                 }})

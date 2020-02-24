@@ -83,10 +83,11 @@ export const addingQuestionListeners = (game) => {
 
 export const addingResetListener = (game) => {
   game.playAgainButton.addEventListener("click", () => {
+    if (game.finishedTalking) {
     game.inner.parentNode.removeChild(game.inner);
     game.submitButtonChecker = false;
-    game.loseReset();
-    }, {once: true});
+    game.loseReset();}
+    });
 }
 
 export const adding5050 = (game) => {

@@ -156,7 +156,7 @@
   background-image: url("./images/monopolyhead.png");
   background-size: contain;
   background-repeat: no-repeat;
-  opacity: 0;
+  opacity: 1;
 }
 
 .container .questionarea .questionssection .questionbox .messagearea {
