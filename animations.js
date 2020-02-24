@@ -23,10 +23,10 @@ let afterWelcomeCompletion = () => {
     .pause(1000)
     .type('This is the game where if you answer 15 questions correctly... ')
     .pause(1000)
-    .type('You become $$$RICH$$$')
+    .type('You become $$$RICH$$$.')
     .pause(1000)
     .delete()
-    .type('For the first 5 questions you have a 30sec timer. Click begin to start the game')
+    .type('For the first 5 questions you have a 30sec timer. Click begin to start the game.')
     .exec(() => {
         gsap.to('.myButton', {duration: 1, opacity: 1});
     })

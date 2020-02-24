@@ -3,6 +3,7 @@ export const answerChecker = (inputAnswer) => {
     inputAnswer.inputIndex.classList.add("correctanswer");
     inputAnswer.scoreBoard.scoresLabels[inputAnswer.questionCounter].classList.add("scorestyle");
     inputAnswer.questionCounter++;
+    inputAnswer.finishedTalking = false;
 
     (inputAnswer.messageArea
     .exec(() => {
@@ -23,7 +24,8 @@ export const answerChecker = (inputAnswer) => {
     .go())
     
     setTimeout(function() {inputAnswer.submitButtonChecker = false;
-                            inputAnswer.nextQuestion();}, 6000);      
+                            inputAnswer.nextQuestion();
+                            inputAnswer.finishedTalking = true}, 6000);      
   } else {
     inputAnswer.inputIndex.classList.add("incorrectanswer");
     if (inputAnswer.questionCounter < 4) {
@@ -50,6 +52,7 @@ export const answerChecker = (inputAnswer) => {
         .pause(1000)
         .delete()
         .type("Click the play-again button to try again")
+        .exec(() => {inputAnswer.finishedTalking = true})
         .go());
     }
   }
@@ -92,32 +95,34 @@ export const addingResetListener = (game) => {
 
 export const adding5050 = (game) => {
   game.fifty50Clicker.addEventListener("click", () => {
-    game.fifty50Used++;
-    game.stopTimer();
-    game.messageArea
-    .empty()
-    .type("Well you want to use a lifeline?")
-    .pause(1000)
-    .delete()
-    .type("Computer, please remove 2 of the incorrect answers from the page")
-    .pause(1000)
-    .exec(() => {game.fifty50();})
-    .delete()
-    .type("2 incorrect answers have been removed. Goodluck")
-    .exec(() => {
-      if (game.questionCounter <= 4) {
-        game.startTimer();
-      }
-    })
-    .go();
+    if (game.finishedTalking) {
+      game.fifty50Used++;
+      game.stopTimer();
+      game.messageArea
+      .empty()
+      .type("Well you want to use a lifeline?")
+      .pause(1000)
+      .delete()
+      .type("Computer, please remove 2 of the incorrect answers from the page")
+      .pause(1000)
+      .exec(() => {game.fifty50();})
+      .delete()
+      .type("2 incorrect answers have been removed. Goodluck")
+      .exec(() => {
+        if (game.questionCounter <= 4) {
+          game.startTimer();
+        }
+      })
+      .go();}
   }, {once: true});
 }
 
 export const addingPaf = (game) => {
   game.pafClicker.addEventListener("click", () => {
+    if (game.finishedTalking) {
     game.pafUsed++;
     game.stopTimer();
-    game.paf();
+    game.paf();}
   }, {once: true});
 }
 
