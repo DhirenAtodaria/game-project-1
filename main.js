@@ -3,11 +3,9 @@ export const answerChecker = (inputAnswer) => {
     inputAnswer.inputIndex.classList.add("correctanswer");
     inputAnswer.scoreBoard.scoresLabels[inputAnswer.questionCounter].classList.add("scorestyle");
     inputAnswer.questionCounter++;
-    inputAnswer.finishedTalking = false;
 
-    (inputAnswer.messageArea
+    (inputAnswer.messageArea = new TypeIt(".messagearea", {speed: 50})
     .exec(() => {
-      inputAnswer.finishedTalking = false;
       let answerAnim = gsap.timeline()
             answerAnim.to('#answer1', {duration: 0.5, opacity: 0})
             answerAnim.to('#answer2', {duration: 0.5, opacity: 0})
@@ -25,12 +23,11 @@ export const answerChecker = (inputAnswer) => {
     .go())
     
     setTimeout(function() {inputAnswer.submitButtonChecker = false;
-                            inputAnswer.nextQuestion();
-                            inputAnswer.finishedTalking = true}, 6000);      
+                            inputAnswer.nextQuestion();}, 6000);      
   } else {
     inputAnswer.inputIndex.classList.add("incorrectanswer");
     if (inputAnswer.questionCounter < 4) {
-      (inputAnswer.messageArea
+      (inputAnswer.messageArea = new TypeIt(".messagearea", {speed: 50})
         .delete()
         .type("Sorry, you've lost")
         .pause(1000)
@@ -43,7 +40,7 @@ export const answerChecker = (inputAnswer) => {
         .type("Click the play-again button to try again")
         .go());
     } else {
-      (inputAnswer.messageArea
+      (inputAnswer.messageArea = new TypeIt(".messagearea", {speed: 50})
         .delete()
         .type("Sorry, you've lost")
         .pause(1000)
@@ -53,7 +50,6 @@ export const answerChecker = (inputAnswer) => {
         .pause(1000)
         .delete()
         .type("Click the play-again button to try again")
-        .exec(() => {inputAnswer.finishedTalking = true})
         .go());
     }
   }
@@ -87,71 +83,80 @@ export const addingQuestionListeners = (game) => {
 
 export const addingResetListener = (game) => {
   game.playAgainButton.addEventListener("click", () => {
-    if (game.finishedTalking) {
-    game.inner.parentNode.removeChild(game.inner);
-    game.submitButtonChecker = false;
-    game.loseReset();}
-    });
+    console.log(game.messageArea.is('completed'))
+    if (game.messageArea.is('completed')) {
+      game.inner.parentNode.removeChild(game.inner);
+      game.submitButtonChecker = false;
+      game.loseReset();
+    }
+  });
 }
 
 export const adding5050 = (game) => {
   game.fifty50Clicker.addEventListener("click", () => {
-    if (game.finishedTalking) {
-      game.fifty50Used++;
-      game.stopTimer();
-      game.messageArea
-      .empty()
-      .type("Well you want to use a lifeline?")
-      .pause(1000)
-      .delete()
-      .type("Computer, please remove 2 of the incorrect answers from the page")
-      .pause(1000)
-      .exec(() => {game.fifty50();})
-      .delete()
-      .type("2 incorrect answers have been removed. Goodluck")
-      .exec(() => {
-        if (game.questionCounter <= 4) {
-          game.startTimer();
-        }
-      })
-      .go();}
-  }, {once: true});
+    if (game.messageArea.is('completed')) {
+      if (game.fifty50Used === 0) {
+        game.fifty50Used++;
+        game.stopTimer();
+        game.messageArea = new TypeIt(".messagearea", {speed: 50})
+        .empty()
+        .type("Well you want to use a lifeline?")
+        .pause(1000)
+        .delete()
+        .type("Computer, please remove 2 of the incorrect answers from the page")
+        .pause(1000)
+        .exec(() => {game.fifty50();})
+        .delete()
+        .type("2 incorrect answers have been removed. Goodluck")
+        .exec(() => {
+          if (game.questionCounter <= 4) {
+            game.startTimer();
+          }
+        })
+        .go();
+      }
+    }
+  });
 }
 
 export const addingPaf = (game) => {
   game.pafClicker.addEventListener("click", () => {
-    if (game.finishedTalking) {
-    game.pafUsed++;
-    game.stopTimer();
-    game.paf();}
-  }, {once: true});
+    if (game.messageArea.is('completed')) {
+      if(game.pafUsed === 0) {
+        game.pafUsed++;
+        game.stopTimer();
+        game.paf();
+      }
+    }
+  });
 }
 
 export const addingTakeMoneyButton = (game) => {
   game.takeMoneyButton.addEventListener("click", () => {
     game.stopTimer();
-    if (game.questionCounter === 0) {
-      game.messageArea
-      .empty()
-      .type("Well done for getting this far.")
-      .pause(1000)
-      .delete()
-      .type(`You haven't won anything unfortunately, better luck next time.`)
-      .pause(1500)
-      .delete()
-      .type("To play again, click the play again button.")
-      .go()
-    } else {
-      game.messageArea
-      .empty()
-      .type("Well done for getting this far.")
-      .pause(1000)
-      .delete()
-      .type(`You've won ${game.scoreBoard.scores[game.questionCounter - 1]} munnys. Well done.`)
-      .pause(1500)
-      .delete()
-      .type("To play again, click the play again button.")
-      .go()
-    }
-  })
+    if (game.messageArea.is('completed')) {
+      if (game.questionCounter === 0) {
+        game.messageArea = new TypeIt(".messagearea", {speed: 50})
+        .empty()
+        .type("Well done for getting this far.")
+        .pause(1000)
+        .delete()
+        .type(`You haven't won anything unfortunately, better luck next time.`)
+        .pause(1500)
+        .delete()
+        .type("To play again, click the play again button.")
+        .go()
+      } else {
+        game.messageArea = new TypeIt(".messagearea", {speed: 50})
+        .empty()
+        .type("Well done for getting this far.")
+        .pause(1000)
+        .delete()
+        .type(`You've won ${game.scoreBoard.scores[game.questionCounter - 1]} munnys. Well done.`)
+        .pause(1500)
+        .delete()
+        .type("To play again, click the play again button.")
+        .go()
+      }
+  }})
 }

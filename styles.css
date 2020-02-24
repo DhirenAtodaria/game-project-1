@@ -474,4 +474,8 @@ button:hover {
   border-radius: 100px;
   text-decoration: none;
 }
+
+#responsive {
+  display: none;
+}
 /*# sourceMappingURL=styles.css.map */
