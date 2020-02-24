@@ -50,7 +50,7 @@ class Game {
             .type("Time's up!")
             .pause(1000)
             .delete()
-            .type("You've lost, click play-again to retry")
+            .type("You've lost, click play-again to retry.")
             .go()
         });
         this.timeBox.appendChild(this.inner);
@@ -74,16 +74,15 @@ class Game {
             this.messageArea
             .exec(() => {
                 this.finishedTalking = false;
-                console.log("finishedtalking false")
             })
-            .pause(4000)
-            .type("Hello and welcome to who wants to be a MUNNYAIRE")
+            .pause(2000)
+            .type("Hello and welcome to who wants to be a MUNNYAIRE!")
             .pause(1000)
             .delete()
-            .type("Get ready for your first question, which is worth a whopping 500 munnys")
+            .type("Get ready for your first question, which is worth a whopping 500 munnys.")
             .pause(500)
             .delete()
-            .type("Here are the answers to the first question")
+            .type("Here are the answers to the first question:")
             .exec(() => {
                 let answerAnim = gsap.timeline()
                 answerAnim.to('#answer1', {duration: 1, opacity: 1})
@@ -105,12 +104,12 @@ class Game {
             .type("If you're right you'll proceed to the next question, if wrong you'll lose. Good luck.")
             .pause(1000)
             .delete()
-            .type(`And here is the question for 500 Munnys`)
+            .type(`And here is the question for 500 Munnys:`)
             .pause(1000)
             .delete()
             .type(`${currentQuestion}`)
             .exec(() => {
-                main.addingQuestionListeners(this);
+                main.addingQuestionListeners(this)
                 if (this.firstQuestionListeners) {
                         this.firstQuestionListeners = false;
                         main.adding5050(this);
@@ -128,7 +127,6 @@ class Game {
                     this.progressBarTimer();
                 }
                 this.finishedTalking = true
-                console.log("finishedtalking true");
             })
             .go()
         } else {
@@ -139,7 +137,6 @@ class Game {
             this.messageArea
             .exec(() => {
                 this.finishedTalking = false;
-                console.log("finishedtalking false")
             })
             .pause(4000)
             .type("Next Question")
