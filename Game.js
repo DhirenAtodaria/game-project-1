@@ -76,7 +76,7 @@ class Game {
                 this.finishedTalking = false;
                 console.log("finishedtalking false")
             })
-            .pause(4000)
+            .pause(2000)
             .type("Hello and welcome to who wants to be a MUNNYAIRE")
             .pause(1000)
             .delete()
