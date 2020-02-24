@@ -6,6 +6,7 @@ export const answerChecker = (inputAnswer) => {
 
     (inputAnswer.messageArea
     .exec(() => {
+      inputAnswer.finishedTalking = false;
       let answerAnim = gsap.timeline()
             answerAnim.to('#answer1', {duration: 0.5, opacity: 0})
             answerAnim.to('#answer2', {duration: 0.5, opacity: 0})
