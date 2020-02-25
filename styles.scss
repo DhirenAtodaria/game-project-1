@@ -11,72 +11,81 @@
     // border: 2px solid green;
     display: flex;
 
+    .tophalf {
+        position: absolute;
+        height: 50vh;
+        width: 100vw;
+        background-color: white;
+    }
+
+    .lowerhalf {
+        position: absolute;
+        bottom:0 ;
+        height: 50vh;
+        width: 100vw;
+        background-color: white;
+    }
+
     .loadingpage {
-        .tophalf {
-            position: absolute;
-            height: 50vh;
-            width: 100vw;
-            background-color: white;
-        }
+        height: 100vh;
+        width: 100vw;
+        position: absolute;
+        z-index: 5; 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
 
-        .monopolyhead {
-            position: absolute;
-            height: 200px;
-            width: 200px;
-            background-image: url("./images/monopolyhead.png");
-            background-size: contain;
-            background-repeat: no-repeat;
-            top: 50%;
-            transform: translate(-100%, -50%);
-            z-index: 3;
-
+        .loadingmessages {
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
             .welcomemessage {
-                position: absolute;
+                // position: absolute;
                 width: 50vw;
                 top: 60%;
                 left: 120%;
                 font-size: 28px;
             }
 
-            .myButton {
-                box-shadow:inset 0px 1px 0px 0px #ffffff;
-                background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
-                background-color:#ffffff;
-                border-radius:6px;
-                border:1px solid #dcdcdc;
-                display:inline-block;
-                cursor:pointer;
-                color:#666666;
-                font-family:Arial;
-                font-size:19px;
-                font-weight:bold;
-                padding:6px 54px;
-                text-decoration:none;
-                text-shadow:0px 1px 0px #ffffff;
-                position: absolute;
-                top: 110%;
-                left: 250%;
-                opacity: 0;
+            .monopolyhead {
+                height: 200px;
+                width: 20%;
+                background-image: url("./images/monopolyhead.png");
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: center;
+                // top: 50%;
+                transform: translate(-150%);
+                // z-index: 3;
             }
-            .myButton:hover {
-                background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
-                background-color:#f6f6f6;
-            }
-            // .myButton:active {
-            //     position:relative;
-            //     top:1px;
-            // }
-            
         }
-
-        .lowerhalf {
-            position: absolute;
-            bottom:0 ;
-            height: 50vh;
-            width: 100vw;
-            background-color: white;
+        
+        .myButton {
+            box-shadow:inset 0px 1px 0px 0px #ffffff;
+            background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+            background-color:#ffffff;
+            border-radius:6px;
+            border:1px solid #dcdcdc;
+            display:inline-block;
+            cursor:pointer;
+            color:#666666;
+            font-family:Arial;
+            font-size:19px;
+            font-weight:bold;
+            padding:6px 54px;
+            text-decoration:none;
+            text-shadow:0px 1px 0px #ffffff;
+            margin-top: 25px;
+            opacity: 0;
         }
+        .myButton:hover {
+            background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+            background-color:#f6f6f6;
+        }           
     }
+    
 
     .questionarea {
         height: 100%;
@@ -105,6 +114,14 @@
                 background-size: contain;
                 background-repeat: no-repeat;
                 background-position: center;
+            }
+
+            .Takemoney {
+                display: none;
+            }
+
+            .play_again {
+                display: none;
             }
         }
 
@@ -386,9 +403,15 @@ button {
     }
 }
 
-<<<<<<< HEAD
 @media screen and (max-width: 1000px) {
     .container {
+        .loadingpage{
+            .loadingmessages{
+               .welcomemessage{
+                   font-size: 20px;
+               }
+            }
+        }
         .scoresarea {
             display: none;
         }
@@ -402,19 +425,65 @@ button {
                 }
     
                 .logo {
-                    width: 100%;
+                    width: 60%;
+                }
+
+                .Takemoney{
+                    display: block;
+                }
+
+                .play_again{
+                    display: block;
+                }
+            }
+
+            .questionssection {
+                .questionbox {
+                    .monopolyquestionhead {
+                        width: 160px;
+                    }
+                    
+                    .messagearea {
+                        font-size: 20px;
+                    }
+                }
+
+                .answersbox {
+                    #answer1, #answer2, #answer3, #answer4 {
+                        font-size: 16px;
+                        opacity: 0;
+                    }
+                }
+
+                .submitarea {
+                    .lloptions {
+                        display: flex;
+                        justify-content: space-evenly;
+                        align-items: center;
+                        width: 100%;
+                        div{
+                            height: 40px;
+                            width: 50px;
+                            background-size: contain;
+                            background-repeat: no-repeat;
+                            background-position: center;
+                        }
+        
+                        .fifty50 {
+                            background-image: url("./images/Classic5050.png");
+                        }
+        
+                        .audience {
+                            background-image: url("./images/ClassicATA.png");
+                        }
+        
+                        .paf {
+                            background-image: url("./images/ClassicPAF.png");
+                        }
+                        
+                    }
                 }
             }
         }
-
-       
     }
-=======
-#responsive {
-    display: none;
-}
-
-@media screen and (max-width: 1000px) {
-
->>>>>>> e888d7851dff58bd200be2bd3206125d9b882a8e
 }

@@ -14,35 +14,72 @@
   display: flex;
 }
 
-.container .loadingpage .tophalf {
+.container .tophalf {
   position: absolute;
   height: 50vh;
   width: 100vw;
   background-color: white;
 }
 
-.container .loadingpage .monopolyhead {
+.container .lowerhalf {
   position: absolute;
-  height: 200px;
-  width: 200px;
-  background-image: url("./images/monopolyhead.png");
-  background-size: contain;
-  background-repeat: no-repeat;
-  top: 50%;
-  -webkit-transform: translate(-100%, -50%);
-          transform: translate(-100%, -50%);
-  z-index: 3;
+  bottom: 0;
+  height: 50vh;
+  width: 100vw;
+  background-color: white;
 }
 
-.container .loadingpage .monopolyhead .welcomemessage {
+.container .loadingpage {
+  height: 100vh;
+  width: 100vw;
   position: absolute;
+  z-index: 5;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.container .loadingpage .loadingmessages {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.container .loadingpage .loadingmessages .welcomemessage {
   width: 50vw;
   top: 60%;
   left: 120%;
   font-size: 28px;
 }
 
-.container .loadingpage .monopolyhead .myButton {
+.container .loadingpage .loadingmessages .monopolyhead {
+  height: 200px;
+  width: 20%;
+  background-image: url("./images/monopolyhead.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  -webkit-transform: translate(-150%);
+          transform: translate(-150%);
+}
+
+.container .loadingpage .myButton {
   -webkit-box-shadow: inset 0px 1px 0px 0px #ffffff;
           box-shadow: inset 0px 1px 0px 0px #ffffff;
   background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #ffffff), to(#f6f6f6));
@@ -59,24 +96,14 @@
   padding: 6px 54px;
   text-decoration: none;
   text-shadow: 0px 1px 0px #ffffff;
-  position: absolute;
-  top: 110%;
-  left: 250%;
+  margin-top: 25px;
   opacity: 0;
 }
 
-.container .loadingpage .monopolyhead .myButton:hover {
+.container .loadingpage .myButton:hover {
   background: -webkit-gradient(linear, left top, left bottom, color-stop(5%, #f6f6f6), to(#ffffff));
   background: linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
   background-color: #f6f6f6;
-}
-
-.container .loadingpage .lowerhalf {
-  position: absolute;
-  bottom: 0;
-  height: 50vh;
-  width: 100vw;
-  background-color: white;
 }
 
 .container .questionarea {
@@ -112,6 +139,14 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.container .questionarea .title .Takemoney {
+  display: none;
+}
+
+.container .questionarea .title .play_again {
+  display: none;
 }
 
 .container .questionarea .questionssection {
@@ -475,8 +510,10 @@ button:hover {
   text-decoration: none;
 }
 
-<<<<<<< HEAD
 @media screen and (max-width: 1000px) {
+  .container .loadingpage .loadingmessages .welcomemessage {
+    font-size: 20px;
+  }
   .container .scoresarea {
     display: none;
   }
@@ -487,11 +524,51 @@ button:hover {
     display: none;
   }
   .container .questionarea .title .logo {
+    width: 60%;
+  }
+  .container .questionarea .title .Takemoney {
+    display: block;
+  }
+  .container .questionarea .title .play_again {
+    display: block;
+  }
+  .container .questionarea .questionssection .questionbox .monopolyquestionhead {
+    width: 160px;
+  }
+  .container .questionarea .questionssection .questionbox .messagearea {
+    font-size: 20px;
+  }
+  .container .questionarea .questionssection .answersbox #answer1, .container .questionarea .questionssection .answersbox #answer2, .container .questionarea .questionssection .answersbox #answer3, .container .questionarea .questionssection .answersbox #answer4 {
+    font-size: 16px;
+    opacity: 0;
+  }
+  .container .questionarea .questionssection .submitarea .lloptions {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: space-evenly;
+        -ms-flex-pack: space-evenly;
+            justify-content: space-evenly;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
     width: 100%;
   }
-=======
-#responsive {
-  display: none;
->>>>>>> e888d7851dff58bd200be2bd3206125d9b882a8e
+  .container .questionarea .questionssection .submitarea .lloptions div {
+    height: 40px;
+    width: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  .container .questionarea .questionssection .submitarea .lloptions .fifty50 {
+    background-image: url("./images/Classic5050.png");
+  }
+  .container .questionarea .questionssection .submitarea .lloptions .audience {
+    background-image: url("./images/ClassicATA.png");
+  }
+  .container .questionarea .questionssection .submitarea .lloptions .paf {
+    background-image: url("./images/ClassicPAF.png");
+  }
 }
 /*# sourceMappingURL=styles.css.map */
