@@ -386,6 +386,7 @@ button {
     }
 }
 
+<<<<<<< HEAD
 @media screen and (max-width: 1000px) {
     .container {
         .scoresarea {
@@ -408,4 +409,12 @@ button {
 
        
     }
+=======
+#responsive {
+    display: none;
+}
+
+@media screen and (max-width: 1000px) {
+
+>>>>>>> e888d7851dff58bd200be2bd3206125d9b882a8e
 }

@@ -18,7 +18,6 @@ class Game {
         this.fifty50Clicker = fifty50;
         this.pafClicker = paf;
         this.firstQuestionListeners = true;
-        this.finishedTalking;
         this.fifty50Used = 0;
         this.pafUsed = 0
         this.people = ["Dad", "Ollie", "Andy", "Sam", "Sunny", "Dhiren", "Stephen", "Sergiu"]
@@ -26,7 +25,7 @@ class Game {
         this.currentCorrectAnswer;
         this.currentIncorrectAnswers;
         this.scoreBoard = new Board(scoreBoard);
-        this.messageArea = new TypeIt(".messagearea", {speed: 50, waitUntilVisible: true});
+        this.messageArea;
         this.questionCounter = 0;
         this.answerInput = "";
         this.inputIndex;
@@ -45,7 +44,7 @@ class Game {
         this.inner.style.animationDuration = "30s";
     
         this.inner.addEventListener('animationend', () => {
-            this.messageArea
+            this.messageArea = new TypeIt(".messagearea", {speed: 50})
             .empty()
             .type("Time's up!")
             .pause(1000)
@@ -71,18 +70,15 @@ class Game {
         if (this.questionCounter === 0) {
             let currentQuestion = this.questions[this.questionCounter].question;
             this.answerSetter();
-            this.messageArea
-            .exec(() => {
-                this.finishedTalking = false;
-            })
-            .pause(2000)
-            .type("Hello and welcome to who wants to be a MUNNYAIRE!")
-            .pause(1000)
-            .delete()
-            .type("Get ready for your first question, which is worth a whopping 500 munnys.")
-            .pause(500)
-            .delete()
-            .type("Here are the answers to the first question:")
+            this.messageArea = new TypeIt(".messagearea", {speed: 50})
+            // .pause(2000)
+            // .type("Hello and welcome to who wants to be a MUNNYAIRE!")
+            // .pause(1000)
+            // .delete()
+            // .type("Get ready for your first question, which is worth a whopping 500 munnys.")
+            // .pause(500)
+            // .delete()
+            // .type("Here are the answers to the first question:")
             .exec(() => {
                 let answerAnim = gsap.timeline()
                 answerAnim.to('#answer1', {duration: 1, opacity: 1})
@@ -90,23 +86,23 @@ class Game {
                 answerAnim.to('#answer3', {duration: 1, opacity: 1})
                 answerAnim.to('#answer4', {duration: 1, opacity: 1})
             })
-            .pause(2000)
-            .delete()
-            .type("To select an answer, please click on any of the 4 answers.")
-            .pause(1000)
-            .delete()
-            .type("Once selected you can change your answer as much as you like.")
-            .pause(1000)
-            .delete()
-            .type("After you've made your decision, click the final button to lock in your answer.")
-            .pause(1000)
-            .delete()
-            .type("If you're right you'll proceed to the next question, if wrong you'll lose. Good luck.")
-            .pause(1000)
-            .delete()
-            .type(`And here is the question for 500 Munnys:`)
-            .pause(1000)
-            .delete()
+            // .pause(2000)
+            // .delete()
+            // .type("To select an answer, please click on any of the 4 answers.")
+            // .pause(1000)
+            // .delete()
+            // .type("Once selected you can change your answer as much as you like.")
+            // .pause(1000)
+            // .delete()
+            // .type("After you've made your decision, click the final button to lock in your answer.")
+            // .pause(1000)
+            // .delete()
+            // .type("If you're right you'll proceed to the next question, if wrong you'll lose. Good luck.")
+            // .pause(1000)
+            // .delete()
+            // .type(`And here is the question for 500 Munnys:`)
+            // .pause(1000)
+            // .delete()
             .type(`${currentQuestion}`)
             .exec(() => {
                 main.addingQuestionListeners(this)
@@ -116,17 +112,12 @@ class Game {
                         main.addingPaf(this);
                         main.addingResetListener(this);
                         main.addingTakeMoneyButton(this);
-                }
-                if (this.fifty50Used === 1) {
-                    main.adding5050(this);
-                }
-                if (this.pafUsed === 1) {
-                    main.addingPaf(this);
+                        main.addingPaf(this);
+                        main.adding5050(this);
                 }
                 if (this.questionCounter <= 4) {
                     this.progressBarTimer();
                 }
-                this.finishedTalking = true
             })
             .go()
         } else {
@@ -134,10 +125,7 @@ class Game {
             this.selectedPerson = this.people[randomPersonNumber];
             let currentQuestion = this.questions[this.questionCounter].question
 
-            this.messageArea
-            .exec(() => {
-                this.finishedTalking = false;
-            })
+            this.messageArea = new TypeIt(".messagearea", {speed: 50})
             .pause(4000)
             .type("Next Question")
             .pause(1000)
@@ -159,7 +147,6 @@ class Game {
             .type(`${currentQuestion}`)
             .exec(() => {
                 main.addingQuestionListeners(this);
-                this.finishedTalking = true;
                 if (this.questionCounter <= 4) {
                     this.progressBarTimer();
                 }})
@@ -210,6 +197,8 @@ class Game {
         this.answerInput = "";
         this.inputIndex = undefined;
         this.questionCounter = 0;
+        this.pafUsed = 0;
+        this.fifty50Used = 0;
         this.answerBoxes.forEach(item => {
             item.classList = "";
         });
@@ -224,7 +213,7 @@ class Game {
     };
 
     paf() {
-        this.messageArea
+        this.messageArea = new TypeIt(".messagearea", {speed: 50})
         .empty()
         .type("Hold the clock. So, who do you want me to Ring?")
         .pause(1000)
