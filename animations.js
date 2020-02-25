@@ -44,7 +44,7 @@ startButton.addEventListener("click", () => {
     .to(".monopolyquestionhead", {duration: 2, opacity: 1}, 4);
 })
 
-// newGame.questionGetter();
+newGame.questionGetter();
 
 
 

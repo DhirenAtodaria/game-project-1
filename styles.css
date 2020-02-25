@@ -134,7 +134,7 @@
 
 .container .questionarea .questionssection .questionbox {
   width: 100%;
-  height: 27%;
+  height: 29%;
   background-image: url(./images/Questionboxes.png);
   background-size: cover;
   background-position: center;
@@ -473,5 +473,20 @@ button:hover {
   background-image: linear-gradient(to bottom, #5CABE3, #2364AD);
   border-radius: 100px;
   text-decoration: none;
+}
+
+@media screen and (max-width: 1000px) {
+  .container .scoresarea {
+    display: none;
+  }
+  .container .questionarea {
+    width: 100%;
+  }
+  .container .questionarea .title .titlemessage {
+    display: none;
+  }
+  .container .questionarea .title .logo {
+    width: 100%;
+  }
 }
 /*# sourceMappingURL=styles.css.map */

@@ -119,7 +119,7 @@
 
             .questionbox {
                 width: 100%;
-                height: 27%;
+                height: 29%;
                 background-image: url(./images/Questionboxes.png);
                 background-size: cover;
                 background-position: center;
@@ -383,5 +383,29 @@ button {
         -moz-border-radius: 100px;
         border-radius: 100px;
         text-decoration: none;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .container {
+        .scoresarea {
+            display: none;
+        }
+
+        .questionarea {
+            width: 100%;
+
+            .title {
+                .titlemessage {
+                    display: none;
+                }
+    
+                .logo {
+                    width: 100%;
+                }
+            }
+        }
+
+       
     }
 }
